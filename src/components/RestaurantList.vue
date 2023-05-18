@@ -12,10 +12,9 @@ export default {
                 pages: [],
             },
 
-            dishes: {
-                list: [],
-                pages: [],
-            },
+
+            types: [],
+            selectedCategories: [],
 
         };
 
@@ -37,10 +36,32 @@ export default {
                 })
 
         },
+
+        fetchTypes(endpoint = null) {
+            if (!endpoint) endpoint = "http://127.0.0.1:8000/api/types";
+
+            axios
+                .get(endpoint)
+                .then((response) => {
+                    this.types = response.data.types;
+                    console.log(response.data.types);
+                })
+
+        },
+
+
+
+
+    },
+
+    computed: {
+
+
     },
 
     created() {
         this.fetchRestaurants();
+        this.fetchTypes();
 
     },
 
@@ -49,12 +70,48 @@ export default {
 </script>
 
 <template>
-    <div v-if="restaurants.list.length">
-        <RestaurantCard v-for="restaurant in restaurants.list" :key="restaurant.id" :restaurant="restaurant" />
+    <div class="container">
+
+
+        <div class="all-types d-flex mb-3 mt-5">
+            <div v-for="type in types" class="types d-flex flex-column">
+                <div>
+                    {{ type.name }}
+                </div>
+                <div class="types-icon">
+                    <img :src="type.image" alt="">
+                </div>
+            </div>
+        </div>
+
+
+
+        <div v-if="restaurants.list.length">
+            <RestaurantCard v-for="   restaurant    in    restaurants.list   " :key="restaurant.id"
+                :restaurant="restaurant" />
+        </div>
+
+        <h2 v-else> Non ci sono ristoranti </h2>
     </div>
-    <h2 v-else> Non ci sono ristoranti </h2>
 </template>
 
 <style lang="scss" scoped>
 //SCSS
+.types {
+    width: 100%;
+}
+
+.all-types {
+    overflow-y: auto;
+
+
+}
+
+.types-icon {
+    width: 100%;
+
+    img {
+        width: 90px;
+    }
+}
 </style>
