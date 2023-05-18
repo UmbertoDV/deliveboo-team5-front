@@ -11,6 +11,11 @@ export default {
                 pages: [],
             },
 
+            dishes: {
+                list: [],
+                pages: [],
+            },
+
         };
 
     },
@@ -27,7 +32,19 @@ export default {
                 .then((response) => {
                     this.restaurants.list = response.data.data;
                     this.restaurants.pages = response.data.links;
-                    console.log(response.data);
+                    console.log(response.data.data);
+                })
+
+        },
+        fetchDishes(endpoint = null) {
+            if (!endpoint) endpoint = "http://127.0.0.1:8000/api/dishes";
+
+            axios
+                .get(endpoint)
+                .then((response) => {
+                    this.dishes.list = response.data.data;
+                    this.dishes.pages = response.data.links;
+                    console.log(response.data.data);
                 })
 
         }
@@ -35,6 +52,7 @@ export default {
 
     created() {
         this.fetchRestaurants();
+        this.fetchDishes();
     },
 
 
@@ -42,19 +60,36 @@ export default {
 </script>
 
 <template>
-    <ul>
-        <li v-for="restaurant in restaurants.list">
-            {{ restaurant.name_restaurant }}
-        </li>
-        <li v-for="restaurant in restaurants.list">
-            {{ restaurant.description }}
-        </li>
-        <li v-for="restaurant in restaurants.list">
-            {{ restaurant.address }}
-        </li>
+    <div v-if="restaurants.list.length">
+        <ul>
+            <li v-for="restaurant in restaurants.list">
+                {{ restaurant.name_restaurant }}
+            </li>
+            <li v-for="restaurant in restaurants.list">
+                {{ restaurant.description }}
+            </li>
+            <li v-for="restaurant in restaurants.list">
+                {{ restaurant.address }}
+            </li>
 
+            <li v-for="restaurant in restaurants.list">
+                <img :src="restaurant.image" alt="">
+            </li>
+        </ul>
+        <ul v-for=" restaurant  in  restaurants.list ">
+            <li v-for=" type  in  restaurant.types "> {{ type.name }}</li>
+            <li v-for=" type  in  restaurant.types ">
+                <img :src="type.image" alt="">
+            </li>
+        </ul>
 
-    </ul>
+        <ul v-for="dish in  dishes.list">
+            <li> {{ dish.name }}</li>
+            <li> <img :src="dish.image" alt=""> </li>
+        </ul>
+    </div>
+
+    <h2 v-else> Non ci sono ristoranti </h2>
 </template>
 
 <style lang="scss" scoped>
