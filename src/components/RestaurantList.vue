@@ -31,8 +31,8 @@ export default {
             axios
                 .get(endpoint)
                 .then((response) => {
-                    this.restaurants.list = response.data.data;
-                    this.restaurants.pages = response.data.links;
+                    this.restaurants.list = response.data.restaurants.data;
+                    this.restaurants.pages = response.data.restaurants.links;
                     console.log(response.data.data);
                 })
 
