@@ -18,7 +18,9 @@ export default {
 
 <template>
 	<AppHeader />
-	<RestaurantList />
+	<div>
+		<router-view></router-view>
+	</div>
 </template>
 
 <style lang="scss" scoped>

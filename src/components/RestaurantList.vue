@@ -1,6 +1,7 @@
 <script>
 import axios from "axios";
 import AppHeader from './AppHeader.vue';
+import RestaurantCard from './RestaurantCard.vue';
 
 export default {
 
@@ -20,7 +21,7 @@ export default {
 
     },
     components: {
-        AppHeader,
+        AppHeader, RestaurantCard,
     },
 
     methods: {
@@ -36,23 +37,11 @@ export default {
                 })
 
         },
-        fetchDishes(endpoint = null) {
-            if (!endpoint) endpoint = "http://127.0.0.1:8000/api/dishes";
-
-            axios
-                .get(endpoint)
-                .then((response) => {
-                    this.dishes.list = response.data.data;
-                    this.dishes.pages = response.data.links;
-                    console.log(response.data.data);
-                })
-
-        }
     },
 
     created() {
         this.fetchRestaurants();
-        this.fetchDishes();
+
     },
 
 
@@ -61,34 +50,8 @@ export default {
 
 <template>
     <div v-if="restaurants.list.length">
-        <ul>
-            <li v-for="restaurant in restaurants.list">
-                {{ restaurant.name_restaurant }}
-            </li>
-            <li v-for="restaurant in restaurants.list">
-                {{ restaurant.description }}
-            </li>
-            <li v-for="restaurant in restaurants.list">
-                {{ restaurant.address }}
-            </li>
-
-            <li v-for="restaurant in restaurants.list">
-                <img :src="restaurant.image" alt="">
-            </li>
-        </ul>
-        <ul v-for=" restaurant  in  restaurants.list ">
-            <li v-for=" type  in  restaurant.types "> {{ type.name }}</li>
-            <li v-for=" type  in  restaurant.types ">
-                <img :src="type.image" alt="">
-            </li>
-        </ul>
-
-        <ul v-for="dish in  dishes.list">
-            <li> {{ dish.name }}</li>
-            <li> <img :src="dish.image" alt=""> </li>
-        </ul>
+        <RestaurantCard v-for="restaurant in restaurants.list" :key="restaurant.id" :restaurant="restaurant" />
     </div>
-
     <h2 v-else> Non ci sono ristoranti </h2>
 </template>
 

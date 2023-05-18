@@ -1,5 +1,5 @@
 <script>
-import DishList from '../components/RestaurantList.vue';
+
 
 export default {
 
@@ -11,15 +11,12 @@ export default {
 
     },
     components: {
-        DishList,
 
     }
 }
 </script>
 
-<template>
-    <DishList />
-</template>
+<template></template>
 
 <style lang="scss" scoped>
 //SCSS

@@ -45,15 +45,11 @@ export default {
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavDropdown">
 				<ul class="navbar-nav">
-					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="#">Home</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Features</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Pricing</a>
-					</li>
+					<router-link :to="{ name: 'home' }" class="nav-link">Homepage</router-link>
+					<router-link :to="{ name: 'restaurants' }" class="nav-link">Ristoranti</router-link>
+					<!-- <router-link :to="{ name: 'restaurant-detail', params: { id: restaurant.id } }"
+						class="nav-link">Dettaglio</router-link> -->
+
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
 							aria-expanded="false">
