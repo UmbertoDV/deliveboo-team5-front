@@ -1,5 +1,8 @@
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
+import AppHeader from './components/AppHeader.vue';
+import RestaurantList from './components/RestaurantList.vue';
+
+
 export default {
 	data() {
 		return {
@@ -7,14 +10,15 @@ export default {
 		};
 	},
 
-	// components:{
-	//	 HelloWorld,
-	// }
+	components: {
+		AppHeader, RestaurantList
+	}
 };
 </script>
 
 <template>
-	<h1>{{ title }}</h1>
+	<AppHeader />
+	<RestaurantList />
 </template>
 
 <style lang="scss" scoped>
