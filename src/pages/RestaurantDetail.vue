@@ -30,7 +30,7 @@ export default {
 
 <template>
     <div class=" mt-5">
-        <div class="">
+        <div class="container-fluid">
 
             <div class="row row-cols-4 gap-3 px-2 d-flex justify-content-center">
                 <div v-for="dish in restaurant.dishes" class="show-card-dish card" style="width: 18rem;">
