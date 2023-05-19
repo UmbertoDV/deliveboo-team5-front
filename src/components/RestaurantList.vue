@@ -38,7 +38,7 @@ export default {
                 .get(endpoint)
                 .then((response) => {
                     this.restaurants.list = response.data;
-                    this.restaurants.pages = response.link;
+
                     if (response.data.type) this.type = response.data.type;
                     console.log(response.data);
 
