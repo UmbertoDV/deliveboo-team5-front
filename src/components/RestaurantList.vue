@@ -92,7 +92,7 @@ export default {
 
         <div class="all-types d-flex mb-3 mt-5">
             <router-link v-for="type in types" class="types d-flex flex-column"
-                :to="{ name: 'type_restaurants', params: { type_id: type.id } }">
+                :to="{ name: 'type_restaurants', params: { type_id: type.id } }" @click="fetchRestaurants()">
                 <div>
                     {{ type.name }}
                 </div>
