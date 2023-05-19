@@ -91,23 +91,27 @@ export default {
 
 <template>
     <div class="container">
-        <div class="all-types d-flex mb-3 mt-5 cover">
+        <div class="all-types mb-3 mt-5 cover">
             <button class="left-1 arrowleft" @click="leftScroll">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-            <div class="scroll-images">
-                <router-link v-for="type in types" class="types"
+
+            <div class="scroll-images pe-5 ps-5 d-flex">
+                <router-link v-for="type  in types" class="types"
                     :to="{ name: 'type_restaurants', params: { type_id: type.id } }" @click="fetchRestaurants()">
-                    <div>
-                        {{ type.name }}
-                    </div>
-                    <div class="types-icon">
-                        <img :src="type.image" alt="" class="child-image">
+                    <div class="d-flex flex-column align-items-center">
+                        <div class="types-icon">
+                            <img :src="type.image" alt="" class="child-image">
+                        </div>
+                        <div class="mt-3 text">
+                            <span>{{ type.name }}</span>
+                        </div>
                     </div>
                 </router-link>
             </div>
+
             <button class="right-1 arrowright" @click="rightScroll">
                 <span></span>
                 <span></span>
@@ -125,11 +129,27 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.all-types {
+    height: 140px;
+}
+
+.types {
+    text-decoration: none;
+    font-weight: bold;
+    color: #5d4df5;
+}
+
 .types-icon {
     width: 100%;
 
     img {
-        width: 90px;
+        width: 80px;
+    }
+
+    .text {
+        font-size: 1rem;
+
+
     }
 }
 
@@ -144,6 +164,7 @@ export default {
     overflow: hidden;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
+    gap: 1.8rem;
 }
 
 .child {
@@ -168,7 +189,7 @@ export default {
 
 .right-1 {
     position: absolute;
-    right: 0;
+    right: -40px;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -247,5 +268,9 @@ export default {
 button {
     background-color: transparent;
     border: none;
+}
+
+img:nth-child(10) {
+    width: 20px;
 }
 </style>
