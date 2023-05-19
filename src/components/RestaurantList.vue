@@ -16,23 +16,32 @@ export default {
             types: [],
             selectedCategories: [],
 
+            type: null,
+
         };
 
     },
+
     components: {
         AppHeader, RestaurantCard,
+    },
+    props: {
+        typeOfRequest: String,
+
     },
 
     methods: {
         fetchRestaurants(endpoint = null) {
-            if (!endpoint) endpoint = "http://127.0.0.1:8000/api/restaurants";
+            if (!endpoint) endpoint = this.baseEndpoint;
 
             axios
                 .get(endpoint)
                 .then((response) => {
-                    this.restaurants.list = response.data.data;
-                    this.restaurants.pages = response.data.links;
+                    this.restaurants.list = response.data;
+                    this.restaurants.pages = response.link;
+                    if (response.data.type) this.type = response.data.type;
                     console.log(response.data);
+
                 })
 
         },
@@ -56,8 +65,16 @@ export default {
 
     computed: {
 
+        baseEndpoint() {
+            if (this.typeOfRequest == "all")
+                return "http://127.0.0.1:8000/api/restaurants";
+            if (this.typeOfRequest == "by_type")
+                return `http://127.0.0.1:8000/api/type/${this.$route.params.type_id}/restaurants`;
+            return "http://127.0.0.1:8000/api/restaurants";
+        },
 
     },
+
 
     created() {
         this.fetchRestaurants();
@@ -74,24 +91,25 @@ export default {
 
 
         <div class="all-types d-flex mb-3 mt-5">
-            <div v-for="type in types" class="types d-flex flex-column">
+            <router-link v-for="type in types" class="types d-flex flex-column"
+                :to="{ name: 'type_restaurants', params: { type_id: type.id } }">
                 <div>
                     {{ type.name }}
                 </div>
                 <div class="types-icon">
                     <img :src="type.image" alt="">
                 </div>
-            </div>
+            </router-link>
         </div>
 
 
 
-        <div v-if="restaurants.list.length">
+        <div>
             <RestaurantCard v-for="   restaurant    in    restaurants.list   " :key="restaurant.id"
                 :restaurant="restaurant" />
         </div>
 
-        <h2 v-else> Non ci sono ristoranti </h2>
+        <h2> Non ci sono ristoranti </h2>
     </div>
 </template>
 

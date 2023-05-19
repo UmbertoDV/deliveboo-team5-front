@@ -1,11 +1,10 @@
 <script>
-
 import RestaurantList from '../components/RestaurantList.vue';
 
-
 export default {
-
+    name: "TypeRestaurantsPage",
     data() {
+
         return {
 
 
@@ -20,9 +19,7 @@ export default {
 </script>
 
 <template>
-    <div>
-        <RestaurantList typeOfRequest="all" />
-    </div>
+    <RestaurantList typeOfRequest="by_type" />
 </template>
 
 <style lang="scss" scoped>
