@@ -98,7 +98,7 @@ export default {
                 <span></span>
             </button>
 
-            <div class="scroll-images pe-5 ps-5 d-flex">
+            <div class="scroll-images pe-5 d-flex">
                 <router-link v-for="type  in types" class="types"
                     :to="{ name: 'type_restaurants', params: { type_id: type.id } }" @click="fetchRestaurants()">
                     <div class="d-flex flex-column align-items-center">
@@ -119,7 +119,7 @@ export default {
             </button>
         </div>
 
-        <div v-if="restaurants.list.length">
+        <div v-if="restaurants.list.length" class="row row-cols-4 gap-3 justify-content-center mt-5">
             <RestaurantCard v-for="   restaurant    in    restaurants.list   " :key="restaurant.id"
                 :restaurant="restaurant" />
         </div>
@@ -164,7 +164,7 @@ export default {
     overflow: hidden;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
-    gap: 1.8rem;
+    gap: 1.9rem;
 }
 
 .child {
@@ -182,7 +182,7 @@ export default {
 
 .left-1 {
     position: absolute;
-    left: 0;
+    left: -40px;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -197,7 +197,7 @@ export default {
 //animation arrow
 .arrowleft {
     position: absolute;
-    top: 50%;
+    top: 25%;
     transform: translate(-50%, -50%);
     transform: rotate(90deg);
     cursor: pointer;
@@ -205,7 +205,7 @@ export default {
 
 .arrowright {
     position: absolute;
-    top: 50%;
+    top: 25%;
     transform: translate(-50%, -50%);
     transform: rotate(-90deg);
     cursor: pointer;
