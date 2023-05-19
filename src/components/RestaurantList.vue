@@ -104,12 +104,12 @@ export default {
 
 
 
-        <div>
+        <div v-if="restaurants.list.length">
             <RestaurantCard v-for="   restaurant    in    restaurants.list   " :key="restaurant.id"
                 :restaurant="restaurant" />
         </div>
 
-        <h2> Non ci sono ristoranti </h2>
+        <h2 v-else> Non ci sono ristoranti </h2>
     </div>
 </template>
 
@@ -121,8 +121,6 @@ export default {
 
 .all-types {
     overflow-y: auto;
-
-
 }
 
 .types-icon {
