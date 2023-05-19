@@ -29,21 +29,85 @@ export default {
 </script>
 
 <template>
-    <div class="card" style="width: 18rem;">
-        <img :src="restaurant.image" class="card-img-top" alt="...">
-        <div v-for="dish in restaurant.dishes">
-            <p>{{ dish.name }}</p>
-            <p>{{ dish.price }}</p>
-            <img :src="'http://127.0.0.1:8000/storage/' + dish.image" alt="">
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">{{ restaurant.name_restaurant }}</h5>
-            <p class="card-text">{{ restaurant.address }}</p>
-            <p class="card-text">{{ restaurant.description }}</p>
+    <div class=" mt-5">
+        <div class="">
+
+            <div class="row row-cols-4 gap-3 px-2 d-flex justify-content-center">
+                <div v-for="dish in restaurant.dishes" class="show-card-dish card" style="width: 18rem;">
+                    <img :src="'http://127.0.0.1:8000/storage/' + dish.image" alt="">
+                    <div class="card-body card-dish">
+                        <h5 class="card-title">{{ dish.name }}</h5>
+                        <p class="card-text">{{ dish.description }}</p>
+                        <p class="card-text">{{ dish.price }}€</p>
+                        <div class="icon-show-dish">
+                            <a href=""> Modifica <i class="fa-solid fa-pen mt-2 mb-4"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
-//SCSS
+// HOME
+#Deliveboo_home {
+    width: 500px;
+}
+
+.home-logo {
+    width: 350px;
+    margin-bottom: 21px;
+}
+
+.homelogo-text {
+    margin-bottom: 0px;
+    color: #FF4E00;
+    font-size: 4rem;
+}
+
+.btn-violet-home {
+    background-color: #5d4df5;
+    color: white;
+    padding: 0.5rem 0.9rem;
+    border-radius: 0.8rem;
+    text-decoration: none;
+
+    &:hover {
+        background-color: #2f1be3;
+        color: white;
+    }
+}
+
+.image-upload {
+    img {
+        width: 100%;
+        object-fit: contain;
+        outline-offset: 4px;
+        outline: 1px solid #5d4df5;
+        border-radius: 20px;
+    }
+}
+
+i {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.card-text {
+    height: 80px;
+}
+
+.show-card-dish {
+    img {
+        width: 250px;
+        height: 200px;
+        object-fit: cover;
+    }
+}
+
+.home-cards {
+    padding: 0px;
+}
 </style>

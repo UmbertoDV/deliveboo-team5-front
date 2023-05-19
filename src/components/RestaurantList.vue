@@ -43,7 +43,6 @@ export default {
                     console.log(response.data);
 
                 })
-
         },
 
         fetchTypes(endpoint = null) {
@@ -58,9 +57,14 @@ export default {
 
         },
 
-
-
-
+        leftScroll() {
+            const right = document.querySelector(".scroll-images");
+            right.scrollBy(-200, 0);
+        },
+        rightScroll() {
+            const left = document.querySelector(".scroll-images");
+            left.scrollBy(200, 0);
+        },
     },
 
     computed: {
@@ -81,28 +85,35 @@ export default {
         this.fetchTypes();
 
     },
-
-
 }
+
 </script>
 
 <template>
     <div class="container">
-
-
-        <div class="all-types d-flex mb-3 mt-5">
-            <router-link v-for="type in types" class="types d-flex flex-column"
-                :to="{ name: 'type_restaurants', params: { type_id: type.id } }" @click="fetchRestaurants()">
-                <div>
-                    {{ type.name }}
-                </div>
-                <div class="types-icon">
-                    <img :src="type.image" alt="">
-                </div>
-            </router-link>
+        <div class="all-types d-flex mb-3 mt-5 cover">
+            <button class="left-1 arrowleft" @click="leftScroll">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="scroll-images">
+                <router-link v-for="type in types" class="types"
+                    :to="{ name: 'type_restaurants', params: { type_id: type.id } }" @click="fetchRestaurants()">
+                    <div>
+                        {{ type.name }}
+                    </div>
+                    <div class="types-icon">
+                        <img :src="type.image" alt="" class="child-image">
+                    </div>
+                </router-link>
+            </div>
+            <button class="right-1 arrowright" @click="rightScroll">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-
-
 
         <div v-if="restaurants.list.length">
             <RestaurantCard v-for="   restaurant    in    restaurants.list   " :key="restaurant.id"
@@ -114,20 +125,127 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-//SCSS
-.types {
-    width: 100%;
-}
-
-.all-types {
-    overflow-y: auto;
-}
-
 .types-icon {
     width: 100%;
 
     img {
         width: 90px;
     }
+}
+
+// 
+.scroll-images {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+.child {
+    width: 120px;
+    height: 100px;
+    margin: 1px 10px;
+    overflow: hidden;
+}
+
+// 
+.cover {
+    padding: 0px 30px;
+    position: relative;
+}
+
+.left-1 {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.right-1 {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+//animation arrow
+.arrowleft {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transform: rotate(90deg);
+    cursor: pointer;
+}
+
+.arrowright {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transform: rotate(-90deg);
+    cursor: pointer;
+}
+
+.arrowright span {
+    display: block;
+    width: 1.5vw;
+    height: 1.5vw;
+    border-bottom: 5px solid #E9511D;
+    border-right: 5px solid #E9511D;
+    transform: rotate(45deg);
+    margin: -10px;
+    animation: animate 2s infinite;
+}
+
+.arrowright span:nth-child(2) {
+    animation-delay: -0.2s;
+}
+
+.arrowright span:nth-child(3) {
+    animation-delay: -0.4s;
+}
+
+.arrowleft span {
+    display: block;
+    width: 1.5vw;
+    height: 1.5vw;
+    border-bottom: 5px solid #E9511D;
+    border-right: 5px solid #E9511D;
+    transform: rotate(45deg);
+    margin: -10px;
+    animation: animate 2s infinite;
+}
+
+.arrowleft span:nth-child(2) {
+    animation-delay: -0.2s;
+}
+
+.arrowleft span:nth-child(3) {
+    animation-delay: -0.4s;
+}
+
+@keyframes animate {
+    0% {
+        opacity: 0;
+        transform: rotate(45deg) translate(-20px, -20px);
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: rotate(45deg) translate(20px, 20px);
+    }
+}
+
+button {
+    background-color: transparent;
+    border: none;
 }
 </style>
