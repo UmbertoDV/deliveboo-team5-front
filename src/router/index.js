@@ -3,6 +3,7 @@ import HomePage from "../pages/HomePage.vue";
 import RestaurantDetail from "../pages/RestaurantDetail.vue";
 import RestaurantListPage from "../pages/RestaurantListPage.vue";
 import TypeRestaurantsPage from "../pages/TypeRestaurantsPage.vue";
+import Cart from "../components/Cart.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -29,6 +30,11 @@ const router = createRouter({
             path: "/type/:type_id/restaurants",
             name: "type_restaurants",
             component: TypeRestaurantsPage,
+        },
+        {
+            path: '/cart',
+            name: 'cart',
+            component: Cart,
         },
 
 

@@ -1,4 +1,5 @@
 <script>
+import Cart from './Cart.vue';
 // import HelloWorld from './components/HelloWorld.vue'
 export default {
 	name: "AppHeader",
@@ -7,6 +8,8 @@ export default {
 			title: "Hello World",
 		};
 	},
+
+	components: { Cart }
 
 };
 </script>
@@ -63,6 +66,7 @@ export default {
 					</li>
 				</ul>
 			</div>
+			<Cart />
 		</div>
 	</nav>
 </template>
@@ -83,6 +87,10 @@ export default {
 
 .cls-3 {
 	fill: #fbbb0a;
+}
+
+.navbar {
+	z-index: 1;
 }
 
 .navbar-deliveboo {
