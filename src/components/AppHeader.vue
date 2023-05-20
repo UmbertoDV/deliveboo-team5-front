@@ -48,22 +48,8 @@ export default {
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavDropdown">
 				<ul class="navbar-nav">
-					<router-link :to="{ name: 'home' }" class="nav-link">Homepage</router-link>
-					<router-link :to="{ name: 'restaurants' }" class="nav-link">Ristoranti</router-link>
-					<!-- <router-link :to="{ name: 'restaurant-detail', params: { id: restaurant.id } }"
-						class="nav-link">Dettaglio</router-link> -->
+					<router-link :to="{ name: 'home' }" class="nav-link me-3">Homepage</router-link>
 
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-							aria-expanded="false">
-							Dropdown link
-						</a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">Action</a></li>
-							<li><a class="dropdown-item" href="#">Another action</a></li>
-							<li><a class="dropdown-item" href="#">Something else here</a></li>
-						</ul>
-					</li>
 				</ul>
 			</div>
 			<Cart />
@@ -91,6 +77,12 @@ export default {
 
 .navbar {
 	z-index: 1;
+	font-size: 1.2rem;
+	color: white;
+}
+
+.nav-link {
+	color: white;
 }
 
 .navbar-deliveboo {
@@ -102,6 +94,7 @@ export default {
 }
 
 #Deliveboo {
-	width: 80px;
+	width: 110px;
+	height: 70px;
 }
 </style>

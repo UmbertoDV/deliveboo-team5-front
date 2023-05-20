@@ -92,7 +92,7 @@ export default {
 <template>
     <div class="container">
         <div class="all-types mb-3 mt-5 cover">
-            <button class="left-1 arrowleft" @click="leftScroll">
+            <button class="left-1 arrowleft" @click="leftScroll" @mouseover="leftScroll()">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -114,21 +114,32 @@ export default {
 
             <button class="right-1 arrowright" @click="rightScroll">
                 <span></span>
-                <span></span>
-                <span></span>
+                <span span> </span>
+                <span span> </span>
             </button>
-        </div>
 
-        <div v-if="restaurants.list.length" class="row row-cols-4 gap-3 justify-content-center mt-5">
-            <RestaurantCard v-for="   restaurant    in    restaurants.list   " :key="restaurant.id"
-                :restaurant="restaurant" />
-        </div>
+            <div div class=" container">
+                <h2 v-if="typeOfRequest == 'all'">Tutti i ristoranti</h2>
+                <div v-else v-for="restaurant in restaurants.list" class="d-flex gap-3 align-items-center mt-5 mb-3">
+                    <h1>Ecco i ristoranti del tipo</h1><img :src="type.image" v-for="type in restaurant.types"
+                        class="icons" />
+                </div>
+                <div v-if="restaurants.list.length" class="row row-cols- gap-3 justify-content-center mt-5">
+                    <RestaurantCard v-for="   restaurant    in    restaurants.list   " :key="restaurant.id"
+                        :restaurant="restaurant" />
+                </div>
 
-        <h2 v-else> Non ci sono ristoranti </h2>
+                <h2 v-else> Non ci sono ristoranti </h2>
+            </div>
+        </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
+.icons {
+    width: 60px;
+}
+
 .all-types {
     height: 140px;
 }
@@ -182,7 +193,7 @@ export default {
 
 .left-1 {
     position: absolute;
-    left: -40px;
+    left: -45px;
     top: 50%;
     transform: translateY(-50%);
 }
