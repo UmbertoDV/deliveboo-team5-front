@@ -24,7 +24,9 @@ export default {
 
 <template>
     <div class="card" style="width: 18rem;">
-        <img :src="restaurant.image" class="card-img-top" alt="...">
+        <div class="">
+            <img :src="restaurant.image" class="card-img-top" alt="...">
+        </div>
         <div class="card-body">
             <h5 class="card-title">{{ restaurant.name_restaurant }}</h5>
             <p class="card-text">{{ restaurant.address }}</p>
@@ -36,5 +38,11 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.card-img-top {
+    width: 100%;
+    object-fit: cover;
+    height: 200px;
+}
+
 //SCSS
 </style>

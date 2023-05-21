@@ -128,28 +128,35 @@ export default {
 
             <button class="right-1 arrowright" @click="rightScroll" @mouseover="rightScroll()">
                 <span></span>
-                <span span> </span>
-                <span span> </span>
+                <span></span>
+                <span></span>
             </button>
 
-            <div div class=" container">
-                <h2 v-if="typeOfRequest == 'all'">Tutti i ristoranti</h2>
-                <div v-else v-for="restaurant in restaurants.list" class="d-flex gap-3 align-items-center mt-5 mb-3">
-                    <h1>Ecco i ristoranti del tipo</h1><img :src="type.image" v-for="type in restaurant.types"
-                        class="icons" />
-                </div>
-                <div v-if="restaurants.list.length" class="row row-cols- gap-3 justify-content-center mt-5">
-                    <RestaurantCard v-for="   restaurant    in    restaurants.list   " :key="restaurant.id"
-                        :restaurant="restaurant" />
-                </div>
-
-                <h2 v-else> Non ci sono ristoranti </h2>
-            </div>
         </div>
+    </div>
+    <div class="container d-flex align-items-center flex-column">
+        <h2 v-if="typeOfRequest == 'all'">Tutti i ristoranti</h2>
+        <div v-else v-for="restaurant in restaurants.list" class="d-flex gap-3 align-items-center mt-5 mb-3">
+            <h2>Ecco i ristoranti del tipo</h2><img :src="type.image" v-for="type in restaurant.types" class="icons" />
+        </div>
+        <div v-if="restaurants.list.length" class="row row-cols- gap-3 justify-content-center mt-5">
+            <RestaurantCard v-for="   restaurant    in    restaurants.list   " :key="restaurant.id"
+                :restaurant="restaurant" />
+        </div>
+
+        <h2 v-else> Non ci sono ristoranti </h2>
     </div>
 </template>
 
 <style lang="scss" scoped>
+h2 {
+    font-family: 'Nunito', sans-serif;
+    font-size: 3rem;
+    margin-top: 2rem;
+    font-weight: 800;
+    color: #FF4E00;
+}
+
 .icons {
     width: 60px;
 }

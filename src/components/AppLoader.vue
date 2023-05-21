@@ -18,15 +18,15 @@ export default {
         <div class="logo_deliveboo me-3">
             <svg id="Deliveboo" data-name="Deliveboo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 231.13 183.21">
                 <title>DELEVIBOO</title>
-                <line class="cls-1" x1="44.2" y1="69.54" x2="30.41" y2="69.54" />
-                <line class="cls-1" x1="43.77" y1="54.04" x2="16.16" y2="54.04" />
+                <line class="linee" x1="44.2" y1="69.54" x2="30.41" y2="69.54" />
+                <line class="linee" x1="43.77" y1="54.04" x2="16.16" y2="54.04" />
                 <path class="cls-2"
                     d="M161.19,33.36s11.14,1.69,15.64,3.38,7.54.11,8.33-1.69-3.6-10.24-14.41-12.72-20.37.72-25,7.57a15.66,15.66,0,0,0-1.92,14.38c.45,1.24,3.38,8.44,15.42,11.93s19.93,4.62,23.08,0c0,0,1.57-.56-3.6-1.24S162,51,162,51,156.91,36.74,157.81,36,161.19,33.36,161.19,33.36Z" />
                 <path class="cls-2"
                     d="M137.27,72.11a5.12,5.12,0,0,1,3.3,2.32c1.44,2.1,6.84,10.37,10.37,12.13s10.81,4,19.42,4,7.5,1.44,8.93-.77,2.1-5.62-.55-6.62-5.29-2.75-6.73-2.53-1.32,1.78-2.54.94-11-4.8-11.36-4.91-9-21.07-11.25-23.06-6-4.63-13.12-2.76-22.4,13-26.59,26.81-2.09,22.39,0,24.93,7.52,5.62,31.22,10.7c0,0,1.78,1.21,0,3.64s-8.16,20-9.27,20.73-3.42,5,.66,6.29,9.49,4.41,10.15,4.52,5.3.78,5.52-1.21.44-2.65-.88-3.31-5.19-.55-4.64-3.31,18.64-27.24,19-29.89,1.11-4.63-3.41-9.38c0,0-15.89-5.84-29.35-10.36,0,0,2.72-14.33,8.17-18.32C136.23,71.24,137.27,72.11,137.27,72.11Z" />
                 <path class="cls-2"
                     d="M183.35,118.12a19.38,19.38,0,0,0-4.84,2l-3.58-13.35-2.1-7.88a4,4,0,0,1,4.66-1.35l2.07,7.27Z" />
-                <path class="cls-3"
+                <path class="zaino"
                     d="M61.06,103.45s-5.72-2.39-5.72-6.15v-43s-.43-5.09,5.72-5.94,27.15,0,27.15,0,7-1.48,8.06,8.27,4.45,33.51,4.67,36.9-1.07,7.64-4.67,7.85-22.9-.64-28.84,8.48A80.78,80.78,0,0,0,58.52,130s-1.27-15.9,3.18-24.39C61.7,105.63,63,104.5,61.06,103.45Z" />
                 <path class="cls-2"
                     d="M183.65,84.48s1.55-8.48,8.52-13.36,10.14,10.23,10.56,15.61-1.48,10.9-3.39,11.11S184.28,95.3,183.65,84.48Z" />
@@ -44,17 +44,44 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.linee {
+    fill: none;
+    stroke: #fff;
+    stroke-linecap: round;
+    stroke-miterlimit: 10;
+    stroke-width: 8px;
+}
+
+.cls-2 {
+    fill: #fff;
+}
+
+.zaino {
+    fill: #fff;
+}
+
 .body-loader {
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    top: 0px;
+    z-index: 3;
+}
 
+.logo_deliveboo {
+    width: 100%;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.15);
+    -webkit-backdrop-filter: blur(11px);
+    backdrop-filter: blur(11px);
+    border: 1px solid rgba(255, 255, 255, 0.075);
 }
 
 svg {
-    animation-duration: 3s;
+    animation-duration: 1s;
     animation-name: loader;
     animation-timing-function: linear;
 }
@@ -62,11 +89,11 @@ svg {
 @keyframes loader {
 
     0% {
-        transform: translate(-200px);
+        transform: translate(500px);
     }
 
     100% {
-        transform: translate(700px);
+        transform: translate(900px);
     }
 
 

@@ -86,7 +86,13 @@ export default {
 }
 
 .navbar-deliveboo {
-	background-color: #E9511D;
+	background-color: rgba(255, 78, 0, 1);
+	box-shadow:
+		0px 0.7px 3.6px rgba(0, 0, 0, 0.021),
+		0px 1.9px 10px rgba(0, 0, 0, 0.03),
+		0px 4.5px 24.1px rgba(0, 0, 0, 0.039),
+		0px 15px 80px rgba(0, 0, 0, 0.06);
+
 
 	.nav-item>a {
 		color: white;

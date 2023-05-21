@@ -103,8 +103,7 @@ export default {
         padding: 1rem;
         width: 30vw;
         z-index: 3;
-        background-color: rgb(233, 81, 29, 0.9);
-
+        background-color: rgba(255, 78, 0, 0.9);
         font-size: 1.3rem;
 
     }
