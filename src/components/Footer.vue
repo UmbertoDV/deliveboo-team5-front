@@ -94,6 +94,12 @@ footer {
   flex-basis: 20%;
   padding: 2rem 2rem;
   max-width: 207px;
+  font-size: 1.2rem;
+
+  span {
+    color: white;
+    font-size: 1.2rem;
+  }
 }
 
 .buttons-footer button {
