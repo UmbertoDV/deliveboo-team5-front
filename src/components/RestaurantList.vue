@@ -112,7 +112,7 @@ export default {
                 </router-link>
             </div>
 
-            <button class="right-1 arrowright" @click="rightScroll">
+            <button class="right-1 arrowright" @click="rightScroll" @mouseover="rightScroll()">
                 <span></span>
                 <span span> </span>
                 <span span> </span>

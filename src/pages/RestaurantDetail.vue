@@ -8,6 +8,7 @@ export default {
             store: useCartStore(), //initialize the store
             restaurant: [],
             link: '',
+            myIndex: 0,
 
         }
     },
@@ -15,6 +16,18 @@ export default {
         console.log(this.store.dishes)
         axios.get('http://127.0.0.1:8000/api/restaurants/' + this.$route.params.id)
             .then((response) => this.restaurant = response.data)
+    },
+
+
+    computed: {
+        myIndex() {
+            for (let i = 0; i > this.restaurant.dishes.length; i++) {
+                i += 1;
+                this.myIndex = i;
+                return this.myIndex = i;
+            }
+            console.log('****' + this.restaurant.dishes.length);
+        }
     },
     methods: {
     }
