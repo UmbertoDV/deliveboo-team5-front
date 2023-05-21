@@ -1,5 +1,7 @@
 <script>
 import RestaurantList from '../components/RestaurantList.vue';
+import Jumbo from '../components/Jumbo.vue';
+
 
 export default {
     name: "TypeRestaurantsPage",
@@ -12,13 +14,14 @@ export default {
 
     },
     components: {
-        RestaurantList,
+        RestaurantList, Jumbo
 
     }
 }
 </script>
 
 <template>
+    <Jumbo/>
     <RestaurantList typeOfRequest="by_type" />
 </template>
 

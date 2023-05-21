@@ -9,6 +9,7 @@ export default {
             restaurant: [],
             link: '',
             myIndex: [],
+            isLoading: false,
 
         }
     },
@@ -31,18 +32,28 @@ export default {
 
     methods: {
         fetchRest() {
+            this.isLoading=true;
             console.log(this.store.dishes)
             axios.get('http://127.0.0.1:8000/api/restaurants/' + this.$route.params.id)
-                .then((response) => this.restaurant = response.data);
+                .then((response) => {
+                    this.restaurant = response.data;
+
+                })
+                .finally(() => {
+                    this.isLoading = false;
+
+                })
+                
         },
     }
 
 }
 </script>
 <template>
+    <AppLoader v-if="isLoading"/>
     <div class="position d-flex justify-content-center all-contain">
         <div class="form-contain-dish">
-            <div class="jumbo d-flex gradient">
+            <div class="jumbo d-flex">
                 <div class="jmb-child d-flex gap-3">
                     <img :src="restaurant.image" alt="">
                     <div class="d-flex flex-column mt-4 gap-2 rest-text">
@@ -60,12 +71,12 @@ export default {
 
 
 
-            <div class="container ps-0  dish-home">
+            <div class="container ps-0 dish-home mt-4">
                 <div class="show-dishes">
 
                     <div class="row gap-3 px-2 d-flex justify-content-center mt-5 mb-5">
 
-                        <div class="card gradient-2" style="width: 19rem;" v-for="dish, index  in   restaurant.dishes  ">
+                        <div class="card gradient-2 pt-3" style="width: 19rem;" v-for="dish, index  in   restaurant.dishes  ">
                             <div class="card-white">
                                 <!-- <div class="gradient-2"></div> -->
                                 <img :src="'http://127.0.0.1:8000/storage/' + dish.image" class="card-img-top mt-4"
@@ -121,25 +132,75 @@ export default {
             </div>
         </div>
     </div>
+    <Footer/>
 </template>
 
 <style scoped>
+
+.jumbo {
+    width: 100vw;
+    height: 300px;
+    border-radius: 1rem;
+    margin-bottom: 13rem;
+}
+
+.jumbo{
+    background: rgba(255, 255, 255, 0.25);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    border-radius: 1rem;
+    /* background-color: #E9511D; */
+    position: relative;
+    box-shadow:
+  0px 0.7px 3.6px rgba(0, 0, 0, 0.042),
+  0px 1.9px 10px rgba(0, 0, 0, 0.06),
+  0px 4.5px 24.1px rgba(0, 0, 0, 0.078),
+  0px 15px 80px rgba(0, 0, 0, 0.12)
+;
+}
+
+.jmb-child{
+    position: absolute;
+    height:350px;
+    width:35%;
+    background-color: white;
+    top:40%;
+    left:35%;
+    border-radius: 1rem;
+    box-shadow:
+  0px 0.7px 3.6px rgba(0, 0, 0, 0.042),
+  0px 1.9px 10px rgba(0, 0, 0, 0.06),
+  0px 4.5px 24.1px rgba(0, 0, 0, 0.078),
+  0px 15px 80px rgba(0, 0, 0, 0.12)
+;
+
+}
+.jumbo img {
+    height: 100%;
+    width: 50%;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+
 /* Blobz */
 .tk-blob {
     position: absolute;
-    width: 100%;
+    width: 50%;
     height: 100%;
     top: -30%;
+    left:0;
     z-index: -1;
-    right: 80%;
-    fill: #E9511D;
+    fill: #F5BB00;
+   
 }
 
 .b2 {
     bottom: 0px;
-    left: 60%;
-    top: 70%;
-    fill: #F5BB00;
+    top:40%;
+    left:40%;
+     fill: #FF4E00;
 }
 
 /* DISHES */
@@ -159,12 +220,15 @@ export default {
 .card-white {
     background-color: white;
     height: 40%;
-    border-bottom-left-radius: 1rem;
-    border-bottom-right-radius: 1rem;
+    border-radius: 1rem;
 }
 
 .row {
     position: relative;
+      background: linear-gradient(334deg, rgb(185, 207, 255, 0.25), #5d4df5, rgb(247, 19, 126, 0.25));
+    animation: gradient-animation 6s ease infinite;
+    padding:2rem;
+    border-radius: 1rem;
 }
 
 /* 
@@ -228,34 +292,13 @@ i {
 
 }
 
-/* JUMBOTRON */
-.jumbo {
-    width: 100vw;
-    height: 300px;
-    background: rgba(255, 255, 255, 0.25);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.125);
-    border-radius: 1rem;
-}
-
-.jumbo img {
-    height: 100%;
-    width: 60%;
-    object-fit: cover;
-    border-radius: 1rem;
-}
-
-.jmb-child {
-    width: 100%;
-}
 
 .home-cards {
     padding: 0px;
 }
 
 .gradient-2 {
-    background: linear-gradient(334deg, rgb(185, 207, 255, 0.25), #5d4df5, rgb(247, 19, 126, 0.25));
+    background: linear-gradient(334deg, rgba(252, 253, 255, 0.25), #c6c4d8, rgba(255, 235, 244, 0.25));
     animation: gradient-animation 6s ease infinite;
     color: white;
     font-size: 1.5rem;
@@ -265,6 +308,7 @@ i {
 .rest-text {
     font-size: 1.4rem;
     font-weight: bolder;
+    width:40%;
 }
 
 .icons-type {
@@ -302,4 +346,6 @@ button,
 button:hover {
     background: rgba(189, 4, 4, 0.127);
 }
+
+
 </style>
