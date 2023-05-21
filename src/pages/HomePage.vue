@@ -1,6 +1,8 @@
 <script>
 
 import RestaurantList from '../components/RestaurantList.vue';
+import Footer from '../components/Footer.vue';
+
 
 
 export default {
@@ -13,7 +15,7 @@ export default {
 
     },
     components: {
-        RestaurantList,
+        RestaurantList, Footer
 
     }
 }
@@ -22,6 +24,7 @@ export default {
 <template>
     <div>
         <!-- <div>
+
             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
                 xmlns:svgjs="http://svgjs.com/svgjs" width="1440" height="560" preserveAspectRatio="none"
                 viewBox="0 0 1440 560">
@@ -40,6 +43,7 @@ export default {
                 </defs>
             </svg>
         </div> -->
+<!-- WAVES -->
         <div class="svg-home">
             <svg class="waves" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
                 xmlns:svgjs="http://svgjs.com/svgjs" width="1440" height="402" preserveAspectRatio="none"
@@ -58,10 +62,9 @@ export default {
                     </mask>
                 </defs>
             </svg>
-
-
+<!-- Logo -->
             <div class="logo d-flex justify-content-center mt-5">
-                <svg id="Deliveboo" data-name="Livello 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 938.48 320.88">
+                <svg id="Deliveboo" data-name="Livello 1" xmlns="http://www.w3.org/2000/svg" viewBox="-78 0 938.48 320.88">
                     <defs></defs>
                     <title>DELEVBOO-def</title>
                     <line class="cls-1" x1="495.66" y1="135.03" x2="410.72" y2="135.03" />
@@ -106,13 +109,11 @@ export default {
 
 
         <RestaurantList typeOfRequest="all" />
+        <Footer/>
 
 
     </div>
-    <div class="mt-5">
-        FOOTER
-
-    </div>
+    
 </template>
 
 <style lang="scss" scoped>
