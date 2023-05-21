@@ -3,10 +3,13 @@ import axios from "axios";
 import AppHeader from './AppHeader.vue';
 import RestaurantCard from './RestaurantCard.vue';
 
+
 export default {
 
     data() {
         return {
+            isLoading: false,
+            errorMess: false,
             restaurants: {
                 list: [],
                 pages: [],
@@ -32,6 +35,7 @@ export default {
 
     methods: {
         fetchRestaurants(endpoint = null) {
+            this.isLoading = true;
             if (!endpoint) endpoint = this.baseEndpoint;
 
             axios
@@ -43,9 +47,18 @@ export default {
                     console.log(response.data);
 
                 })
+                .catch((error) => {
+                    // TO DO: 404 !!!
+                    this.errorMess = err.message;
+                })
+                .finally(() => {
+                    this.isLoading = false;
+
+                })
         },
 
         fetchTypes(endpoint = null) {
+            this.isLoading = true;
             if (!endpoint) endpoint = "http://127.0.0.1:8000/api/types";
 
             axios
@@ -90,6 +103,7 @@ export default {
 </script>
 
 <template>
+    <AppLoader v-if="isLoading" />
     <div class="container">
         <div class="all-types mb-3 mt-5 cover">
             <button class="left-1 arrowleft" @click="leftScroll" @mouseover="leftScroll()">

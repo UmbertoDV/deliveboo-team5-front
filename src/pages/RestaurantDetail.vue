@@ -8,28 +8,33 @@ export default {
             store: useCartStore(), //initialize the store
             restaurant: [],
             link: '',
-            myIndex: 0,
+            myIndex: [],
 
         }
     },
     created() {
-        console.log(this.store.dishes)
-        axios.get('http://127.0.0.1:8000/api/restaurants/' + this.$route.params.id)
-            .then((response) => this.restaurant = response.data)
+        this.fetchRest();
     },
-
 
     computed: {
         myIndex() {
             for (let i = 0; i > this.restaurant.dishes.length; i++) {
-                i += 1;
-                this.myIndex = i;
-                return this.myIndex = i;
+                n = 1;
+                this.myIndex.push(n);
+                return this.myIndex.push(n);
             }
-            console.log('****' + this.restaurant.dishes.length);
-        }
+            console.log('****' + this.myIndex);
+        },
+
+
     },
+
     methods: {
+        fetchRest() {
+            console.log(this.store.dishes)
+            axios.get('http://127.0.0.1:8000/api/restaurants/' + this.$route.params.id)
+                .then((response) => this.restaurant = response.data);
+        },
     }
 
 }
@@ -85,7 +90,7 @@ export default {
 
                                         <!-- TRE ORE DOPO... -->
                                         <span v-for=" dish  in  store.dishes ">
-                                            <div :class="(dish.id == index + 1) ? 'wdt' : ''" v-if="dish.id == index + 1">{{
+                                            <div :class="(myIndex == index) ? 'wdt' : ''" v-if="dish.id == index + 1">{{
                                                 dish.quantity }}</div>
                                         </span>
 

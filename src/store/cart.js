@@ -7,6 +7,7 @@ export const useCartStore = defineStore("cart", {
         return {
             dishes: useLocalStorage('dishes', []),
             totalPrice: useLocalStorage('price', 0),
+            index: 0,
 
         };
     },
