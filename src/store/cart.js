@@ -6,7 +6,8 @@ export const useCartStore = defineStore("cart", {
     state: () => {
         return {
             dishes: useLocalStorage('dishes', []),
-            totalPrice: useLocalStorage('price', 0)
+            totalPrice: useLocalStorage('price', 0),
+
         };
     },
     actions: {
@@ -15,6 +16,7 @@ export const useCartStore = defineStore("cart", {
             for (let otherDishes of this.dishes) {
                 if (dish.id == otherDishes.id) {
                     isAlreadyInCart = 1;
+
                 }
             }
             if (isAlreadyInCart) {
@@ -48,6 +50,9 @@ export const useCartStore = defineStore("cart", {
                         this.dishes.splice(i, 1)
                         this.totalPrice -= dish.price
                     }
+                    if (this.dishes.length == 0) {
+                        this.dishes.quantity = 0;
+                    }
                     else {
                         i++
                     }
@@ -67,6 +72,7 @@ export const useCartStore = defineStore("cart", {
                 if (dish.id == otherDishes.id) {
                     otherDishes.quantity += 1
                     this.totalPrice += dish.price
+                    index += 1;
                 }
             }
         }
