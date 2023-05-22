@@ -131,11 +131,6 @@ export default {
 </template>
 
 <style scoped>
-.all-contain,
-.form-contain-dish {
-  overflow-x: hidden;
-}
-
 .price {
   height: 40px;
 }
@@ -192,15 +187,13 @@ export default {
   left: 0;
   z-index: -1;
   fill: #f5bb00;
-  overflow: hidden;
 }
 
 .b2 {
   bottom: 0px;
   top: 40%;
-  left: 40%;
+  left: 50%;
   fill: #ff4e00;
-  overflow: hidden;
 }
 
 /* DISHES */
