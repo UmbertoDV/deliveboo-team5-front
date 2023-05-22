@@ -92,6 +92,7 @@ export default {
 
 .cart {
     .cart-popover {
+        overflow-y: auto;
         position: fixed;
         top: 0;
         right: 0;
