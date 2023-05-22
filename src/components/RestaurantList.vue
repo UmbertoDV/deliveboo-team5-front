@@ -132,13 +132,14 @@ export default {
   </div>
   <div class="container d-flex align-items-center flex-column">
     <h2 v-if="typeOfRequest == 'all'">Tutti i ristoranti</h2>
-    <div
-      v-else
-      v-for="restaurant in restaurants.list"
-      class="d-flex gap-3 align-items-center mt-5 mb-3"
-    >
+    <div v-else>
       <h2>Ecco i ristoranti del tipo</h2>
-      <img :src="type.image" v-for="type in restaurant.types" class="icons" />
+      <div
+        v-for="restaurant in restaurants.list"
+        class="d-flex gap-3 align-items-center mt-5 mb-3"
+      >
+        <img :src="type.image" v-for="type in restaurant.types" class="icons" />
+      </div>
     </div>
     <div
       v-if="restaurants.list.length"
