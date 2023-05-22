@@ -10,6 +10,7 @@ export default {
       link: "",
       myIndex: [],
       isLoading: false,
+      currentRest: null,
     };
   },
   created() {
@@ -20,6 +21,7 @@ export default {
     myIndex() {
       for (let i = 0; i > this.restaurant.dishes.length; i++) {
         n = 1;
+        this.currentRest = this.store.currentRestaurant;
         this.myIndex.push(n);
         return this.myIndex.push(n);
       }
@@ -72,8 +74,27 @@ export default {
               style="width: 19rem"
               v-for="(dish, index) in restaurant.dishes"
             >
+              <!-- ALERT -->
+              <div
+                class="alert alert-success"
+                role="alert"
+                v-if="!dish.restaurant_id === currentRest"
+              >
+                <h4 class="alert-heading">Well done!</h4>
+                <p>
+                  Aww yeah, you successfully read this important alert message.
+                  This example text is going to run a bit longer so that you can
+                  see how spacing within an alert works with this kind of
+                  content.
+                </p>
+                <hr />
+                <p class="mb-0">
+                  Whenever you need to, be sure to use margin utilities to keep
+                  things nice and tidy.
+                </p>
+              </div>
+
               <div class="card-white">
-                <!-- <div class="gradient-2"></div> -->
                 <div class="card-img">
                   <img
                     :src="'http://127.0.0.1:8000/storage/' + dish.image"
