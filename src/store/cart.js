@@ -107,11 +107,14 @@ export const useCartStore = defineStore("cart", {
       totalPrice: useLocalStorage("price", 0),
       index: 0,
       currentRestaurant: null,
+      showAlert: false,
+      alertClasses: "",
     };
   },
   actions: {
     addDish(dish) {
       let isAlreadyInCart = 0;
+      this.showAlert = false;
       for (let otherDishes of this.dishes) {
         this.currentRestaurant = dish.restaurant_id;
         if (dish.id == otherDishes.id) {
@@ -127,6 +130,20 @@ export const useCartStore = defineStore("cart", {
           }
         }
       } else {
+        // Verifica se nel carrello sono già presenti piatti di ristoranti diversi
+        const piattiRistoranteDiverso = this.dishes.some(
+          (d) => d.restaurant_id !== this.currentRestaurant
+        );
+        // Se sono presenti piatti di ristoranti diversi, mostra un alert
+        if (piattiRistoranteDiverso) {
+          this.alertClasses = "alert alert-warning";
+          window.alert("Non puoi ordinare da due diversi ristoranti!");
+          this.dishes = [];
+          this.totalPrice = 0;
+          this.showAlert = true;
+          return; // Interrompi l'esecuzione della funzione per evitare di aggiungere il piatto al carrello
+        }
+
         dish["quantity"] = 1;
 
         this.currentRestaurant = dish.restaurant_id;

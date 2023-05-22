@@ -11,6 +11,7 @@ export default {
       myIndex: [],
       isLoading: false,
       currentRest: null,
+      showAlert: null,
     };
   },
   created() {
@@ -26,6 +27,10 @@ export default {
         return this.myIndex.push(n);
       }
       console.log("****" + this.myIndex);
+    },
+
+    show() {
+      this.showAlert = this.store.showAlert;
     },
   },
 
@@ -46,6 +51,16 @@ export default {
 };
 </script>
 <template>
+  <!-- ALERT -->
+  <!-- <div class="position-relative">
+    <div
+      :class="alertClasses"
+      role="alert"
+      v-if="showAlert == true"
+      class="d-flex position-absolute card"
+    ></div>
+    <h2 class="alert-heading">Non puoi ordinare da due ristoranti diversi!</h2>
+  </div> -->
   <AppLoader v-if="isLoading" />
   <div class="position d-flex justify-content-center all-contain">
     <div class="form-contain-dish">
@@ -74,26 +89,6 @@ export default {
               style="width: 19rem"
               v-for="(dish, index) in restaurant.dishes"
             >
-              <!-- ALERT -->
-              <div
-                class="alert alert-success"
-                role="alert"
-                v-if="!dish.restaurant_id === currentRest"
-              >
-                <h4 class="alert-heading">Well done!</h4>
-                <p>
-                  Aww yeah, you successfully read this important alert message.
-                  This example text is going to run a bit longer so that you can
-                  see how spacing within an alert works with this kind of
-                  content.
-                </p>
-                <hr />
-                <p class="mb-0">
-                  Whenever you need to, be sure to use margin utilities to keep
-                  things nice and tidy.
-                </p>
-              </div>
-
               <div class="card-white">
                 <div class="card-img">
                   <img
@@ -154,6 +149,9 @@ export default {
 </template>
 
 <style scoped>
+.position-absolute {
+  top: 40%;
+}
 .price {
   height: 40px;
 }
