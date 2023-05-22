@@ -74,13 +74,15 @@ export default {
             >
               <div class="card-white">
                 <!-- <div class="gradient-2"></div> -->
-                <img
-                  :src="'http://127.0.0.1:8000/storage/' + dish.image"
-                  class="card-img-top mt-4"
-                  alt="..."
-                />
+                <div class="card-img">
+                  <img
+                    :src="'http://127.0.0.1:8000/storage/' + dish.image"
+                    class="card-img-top"
+                    alt="..."
+                  />
+                </div>
                 <div class="card-body pt-0">
-                  <h4 class="card-title tit">{{ dish.name }}</h4>
+                  <h4 class="card-title tit mt-3">{{ dish.name }}</h4>
                   <p class="card-text mb-3">{{ dish.description }}</p>
                   <div class="price">{{ dish.price }} €</div>
 
@@ -135,7 +137,7 @@ export default {
   height: 40px;
 }
 .tit {
-  height: 50px;
+  height: 70px;
   display: inline-block;
 }
 .jumbo {
@@ -161,11 +163,11 @@ export default {
 .jmb-child {
   position: absolute;
   height: 350px;
-  width: 35%;
+  width: 38%;
   min-width: 400px;
   background-color: white;
   top: 40%;
-  left: 32%;
+  left: 30%;
   border-radius: 1rem;
   box-shadow: 0px 0.7px 3.6px rgba(0, 0, 0, 0.042),
     0px 1.9px 10px rgba(0, 0, 0, 0.06), 0px 4.5px 24.1px rgba(0, 0, 0, 0.078),
@@ -209,12 +211,6 @@ export default {
   align-items: center;
 }
 
-.card-white {
-  background-color: white;
-  height: 40%;
-  border-radius: 1rem;
-}
-
 .row {
   position: relative;
   background: linear-gradient(
@@ -227,11 +223,6 @@ export default {
   padding: 2rem;
   border-radius: 1rem;
 }
-
-/* 
-.form-contain-dish {
-    position: absolute;
-} */
 
 .show-card-dish {
   background: rgba(255, 255, 255, 0.25);
@@ -285,10 +276,19 @@ i {
   display: none;
 }
 
-.card img {
-  width: 250px;
-  height: 230px;
-  object-fit: contain;
+.card-img-top {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+.card-img {
+  background-color: white;
+  border-radius: 1rem;
+  display: flex;
+  width: 280px;
+  justify-content: center;
+  align-items: center;
 }
 
 .home-cards {

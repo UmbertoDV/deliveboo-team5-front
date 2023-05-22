@@ -54,10 +54,19 @@ export default {
       this.isLoading = true;
       if (!endpoint) endpoint = "http://127.0.0.1:8000/api/types";
 
-      axios.get(endpoint).then((response) => {
-        this.types = response.data.types;
-        console.log(response.data.types);
-      });
+      axios
+        .get(endpoint)
+        .then((response) => {
+          this.types = response.data.types;
+          console.log(response.data.types);
+        })
+        .catch((error) => {
+          // TO DO: 404 !!!
+          this.errorMess = err.message;
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
 
     leftScroll() {
