@@ -122,7 +122,7 @@ export const useCartStore = defineStore("cart", {
                 }
             }
             if (isAlreadyInCart) {
-              
+              if(this.dishes[0].restaurant_id == dish.restaurant_id){
                   for (let otherDishes of this.dishes) {
                       if (dish.id == otherDishes.id) {
                           otherDishes['quantity'] += 1
@@ -130,18 +130,17 @@ export const useCartStore = defineStore("cart", {
                           console.log(otherDishes)
                       }
                   }
-            
-            }
-            else {
-                if(this.dishes[0].restaurant_id == dish.restaurant_id){
-                dish['quantity'] = 1
-                this.totalPrice += dish.price
-                this.dishes.push(dish);
-                  } else {
+              } else {
                 alert('non puoi');
             this.dishes.pop();
             this.totalPrice -= dish.price
               }
+            }
+            else {
+                
+                dish['quantity'] = 1
+                this.totalPrice += dish.price
+                this.dishes.push(dish);
             }
             console.log(isAlreadyInCart)
         },
