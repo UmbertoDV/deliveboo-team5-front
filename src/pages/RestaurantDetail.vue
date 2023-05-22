@@ -79,8 +79,8 @@ export default {
                   class="card-img-top mt-4"
                   alt="..."
                 />
-                <div class="card-body">
-                  <h3 class="card-title">{{ dish.name }}</h3>
+                <div class="card-body pt-0">
+                  <h4 class="card-title">{{ dish.name }}</h4>
                   <p class="card-text mb-5">{{ dish.description }}</p>
                   <div>{{ dish.price }} €</div>
 
@@ -294,12 +294,13 @@ i {
 }
 
 .card-text {
-  height: 40px;
+  height: 28px;
+  font-size: 1.3rem;
 }
 
 .card img {
   width: 250px;
-  height: 250px;
+  height: 230px;
   object-fit: contain;
 }
 
@@ -317,6 +318,7 @@ i {
   animation: gradient-animation 6s ease infinite;
   color: white;
   font-size: 1.5rem;
+  border-radius: 1rem;
 }
 
 .rest-text {
