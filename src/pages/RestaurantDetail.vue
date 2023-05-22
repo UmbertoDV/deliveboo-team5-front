@@ -80,9 +80,9 @@ export default {
                   alt="..."
                 />
                 <div class="card-body pt-0">
-                  <h4 class="card-title">{{ dish.name }}</h4>
-                  <p class="card-text mb-5">{{ dish.description }}</p>
-                  <div>{{ dish.price }} €</div>
+                  <h4 class="card-title tit">{{ dish.name }}</h4>
+                  <p class="card-text mb-3">{{ dish.description }}</p>
+                  <div class="price">{{ dish.price }} €</div>
 
                   <div
                     class="btn btn-violet-home mt-3 d-flex justify-content-center align-items-center gap-2"
@@ -131,6 +131,18 @@ export default {
 </template>
 
 <style scoped>
+.all-contain,
+.form-contain-dish {
+  overflow-x: hidden;
+}
+
+.price {
+  height: 40px;
+}
+.tit {
+  height: 50px;
+  display: inline-block;
+}
 .jumbo {
   width: 100vw;
   height: 300px;
@@ -180,6 +192,7 @@ export default {
   left: 0;
   z-index: -1;
   fill: #f5bb00;
+  overflow: hidden;
 }
 
 .b2 {
@@ -187,6 +200,7 @@ export default {
   top: 40%;
   left: 40%;
   fill: #ff4e00;
+  overflow: hidden;
 }
 
 /* DISHES */
@@ -268,8 +282,14 @@ i {
 }
 
 .card-text {
-  height: 28px;
+  height: 100px;
   font-size: 1.3rem;
+  overflow: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+}
+.card-text::-webkit-scrollbar {
+  display: none;
 }
 
 .card img {
