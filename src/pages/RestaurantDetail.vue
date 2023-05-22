@@ -102,32 +102,6 @@ export default {
                       />
                     </svg>
                   </div>
-
-                  <div
-                    class="d-flex gap-2 align-items-center mt-4 item-numbers"
-                  >
-                    <button class="btn minus" @click="store.minusOne(dish)">
-                      -
-                    </button>
-
-                    <!-- TRE ORE DOPO... -->
-                    <span v-for="dish in store.dishes">
-                      <div
-                        :class="myIndex == index ? 'wdt' : ''"
-                        v-if="dish.id == index + 1"
-                      >
-                        {{ dish.quantity }}
-                      </div>
-                    </span>
-
-                    <button
-                      button
-                      class="btn plus"
-                      @click="store.addDish(dish)"
-                    >
-                      +
-                    </button>
-                  </div>
                 </div>
               </div>
             </div>
