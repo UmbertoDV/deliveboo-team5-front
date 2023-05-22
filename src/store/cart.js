@@ -12,6 +12,13 @@ export const useCartStore = defineStore("cart", {
     },
     actions: {
         addDish(dish) {
+            dish.price = parseInt(dish.price);
+                dish['quantity'] = 1
+                this.totalPrice += dish.price
+                // console.log(this.totalPrice);
+                this.dishes.push(dish);
+
+            if(this.dishes[0].restaurant_id == dish.restaurant_id){
             let isAlreadyInCart = 0;
             dish.price = parseInt(dish.price);
             for (let otherDishes of this.dishes) {
@@ -25,9 +32,11 @@ export const useCartStore = defineStore("cart", {
                 for (let otherDishes of this.dishes) {
                     if (dish.id == otherDishes.id) {
                         dish.price = parseInt(dish.price);
+                        dish['quantity'] = 0
+                        this.totalPrice -= dish.price
                         otherDishes['quantity'] += 1
                         this.totalPrice += dish.price
-                        console.log(this.totalPrice);
+                        // console.log(this.totalPrice);
                         // console.log(otherDishes)
                     }
                 }
@@ -36,9 +45,17 @@ export const useCartStore = defineStore("cart", {
                 dish.price = parseInt(dish.price);
                 dish['quantity'] = 1
                 this.totalPrice += dish.price
-                console.log(this.totalPrice);
+                // console.log(this.totalPrice);
                 this.dishes.push(dish);
             }
+        } else {
+            console.log('non puoi');
+            let length = this.dishes.length;
+            console.log(length);
+            this.dishes.pop();
+            this.totalPrice -= dish.price
+
+        }
             // console.log(isAlreadyInCart)
         },
         deleteDish(key) {
@@ -49,7 +66,7 @@ export const useCartStore = defineStore("cart", {
             this.totalPrice = 0
         },
         minusOne(dish) {
-            console.log(this.totalPrice);
+            // console.log(this.totalPrice);
             if (dish['quantity'] == 1) {
                 let i = 0
                 for (let otherDishes of this.dishes) {
@@ -75,7 +92,7 @@ export const useCartStore = defineStore("cart", {
             }
         },
         moreOne(dish) {
-            console.log(this.totalPrice);
+            // console.log(this.totalPrice);
             for (let otherDishes of this.dishes) {
                 if (dish.id == otherDishes.id) {
                     otherDishes.quantity += 1
