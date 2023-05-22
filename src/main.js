@@ -1,7 +1,17 @@
 import { createApp } from "vue";
+import { createPinia } from 'pinia';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.scss";
+import "./assets/css/blobz.css";
+import AppLoader from './components/AppLoader.vue';
+import Footer from './components/Footer.vue';
 import { router } from './router';
 import App from "./App.vue";
 
-createApp(App).use(router).mount("#app");
+const pinia = createPinia();
+const app = createApp(App);
+app.use(router);
+app.use(pinia);
+app.component('AppLoader', AppLoader);
+app.component('Footer', Footer);
+app.mount("#app");

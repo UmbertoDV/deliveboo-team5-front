@@ -1,4 +1,5 @@
 <script>
+import Cart from './Cart.vue';
 // import HelloWorld from './components/HelloWorld.vue'
 export default {
 	name: "AppHeader",
@@ -7,6 +8,8 @@ export default {
 			title: "Hello World",
 		};
 	},
+
+	components: { Cart }
 
 };
 </script>
@@ -45,24 +48,11 @@ export default {
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavDropdown">
 				<ul class="navbar-nav">
-					<router-link :to="{ name: 'home' }" class="nav-link">Homepage</router-link>
-					<router-link :to="{ name: 'restaurants' }" class="nav-link">Ristoranti</router-link>
-					<!-- <router-link :to="{ name: 'restaurant-detail', params: { id: restaurant.id } }"
-						class="nav-link">Dettaglio</router-link> -->
+					<router-link :to="{ name: 'home' }" class="nav-link me-3">Homepage</router-link>
 
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-							aria-expanded="false">
-							Dropdown link
-						</a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">Action</a></li>
-							<li><a class="dropdown-item" href="#">Another action</a></li>
-							<li><a class="dropdown-item" href="#">Something else here</a></li>
-						</ul>
-					</li>
 				</ul>
 			</div>
+			<Cart />
 		</div>
 	</nav>
 </template>
@@ -85,8 +75,24 @@ export default {
 	fill: #fbbb0a;
 }
 
+.navbar {
+	z-index: 1;
+	font-size: 1.2rem;
+	color: white;
+}
+
+.nav-link {
+	color: white;
+}
+
 .navbar-deliveboo {
-	background-color: #E9511D;
+	background-color: rgba(255, 78, 0, 1);
+	box-shadow:
+		0px 0.7px 3.6px rgba(0, 0, 0, 0.021),
+		0px 1.9px 10px rgba(0, 0, 0, 0.03),
+		0px 4.5px 24.1px rgba(0, 0, 0, 0.039),
+		0px 15px 80px rgba(0, 0, 0, 0.06);
+
 
 	.nav-item>a {
 		color: white;
@@ -94,6 +100,7 @@ export default {
 }
 
 #Deliveboo {
-	width: 80px;
+	width: 110px;
+	height: 70px;
 }
 </style>

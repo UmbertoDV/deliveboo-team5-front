@@ -1,25 +1,23 @@
 <script>
-import RestaurantList from '../components/RestaurantList.vue';
+import RestaurantList from "../components/RestaurantList.vue";
+import Jumbo from "../components/Jumbo.vue";
 
 export default {
-    name: "TypeRestaurantsPage",
-    data() {
-
-        return {
-
-
-        };
-
-    },
-    components: {
-        RestaurantList,
-
-    }
-}
+  name: "TypeRestaurantsPage",
+  data() {
+    return {};
+  },
+  components: {
+    RestaurantList,
+    Jumbo,
+  },
+};
 </script>
 
 <template>
-    <RestaurantList typeOfRequest="by_type" />
+  <Jumbo />
+  <RestaurantList typeOfRequest="by_type" />
+  <Footer />
 </template>
 
 <style lang="scss" scoped>
