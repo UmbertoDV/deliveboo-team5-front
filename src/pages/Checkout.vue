@@ -8,6 +8,18 @@ export default {
   components: {
     Cart,
   },
+  methods: {
+    sendCart() {
+      axios
+        .post("http://127.0.0.1:8000/api/orders", {
+          cart: this.store.dishes,
+        })
+        .then((response) => console.log(response));
+    },
+    toggleCart() {
+      this.isVisible == 1 ? (this.isVisible = 0) : (this.isVisible = 1);
+    },
+  },
 };
 </script>
 
@@ -137,6 +149,12 @@ export default {
                       value=""
                     ></textarea>
                   </div>
+                  <button
+                    @click="sendCart()"
+                    class="btn btn-violet me-2 p-3 mt-4"
+                  >
+                    Invia ordine
+                  </button>
                 </div>
               </div>
             </div>
