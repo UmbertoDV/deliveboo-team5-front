@@ -15,7 +15,6 @@ export const useCartStore = defineStore("cart", {
             dish.price = parseInt(dish.price);
                 dish['quantity'] = 1
                 this.totalPrice += dish.price
-                // console.log(this.totalPrice);
                 this.dishes.push(dish);
 
             if(this.dishes[0].restaurant_id == dish.restaurant_id){
@@ -36,8 +35,6 @@ export const useCartStore = defineStore("cart", {
                         this.totalPrice -= dish.price
                         otherDishes['quantity'] += 1
                         this.totalPrice += dish.price
-                        // console.log(this.totalPrice);
-                        // console.log(otherDishes)
                     }
                 }
             }
@@ -45,7 +42,6 @@ export const useCartStore = defineStore("cart", {
                 dish.price = parseInt(dish.price);
                 dish['quantity'] = 1
                 this.totalPrice += dish.price
-                // console.log(this.totalPrice);
                 this.dishes.push(dish);
             }
         } else {
@@ -56,7 +52,6 @@ export const useCartStore = defineStore("cart", {
             this.totalPrice -= dish.price
 
         }
-            // console.log(isAlreadyInCart)
         },
         deleteDish(key) {
             delete this.dishes[key];
@@ -66,7 +61,6 @@ export const useCartStore = defineStore("cart", {
             this.totalPrice = 0
         },
         minusOne(dish) {
-            // console.log(this.totalPrice);
             if (dish['quantity'] == 1) {
                 let i = 0
                 for (let otherDishes of this.dishes) {
@@ -92,7 +86,6 @@ export const useCartStore = defineStore("cart", {
             }
         },
         moreOne(dish) {
-            // console.log(this.totalPrice);
             for (let otherDishes of this.dishes) {
                 if (dish.id == otherDishes.id) {
                     otherDishes.quantity += 1
