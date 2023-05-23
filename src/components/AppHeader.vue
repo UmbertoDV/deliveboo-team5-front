@@ -117,6 +117,7 @@ export default {
 }
 
 .navbar-deliveboo {
+  position: fixed;
   background-color: rgba(255, 78, 0, 1);
   box-shadow: 0px 0.7px 3.6px rgba(0, 0, 0, 0.021),
     0px 1.9px 10px rgba(0, 0, 0, 0.03), 0px 4.5px 24.1px rgba(0, 0, 0, 0.039),

@@ -165,6 +165,7 @@ export default {
   height: 300px;
   border-radius: 1rem;
   margin-bottom: 13rem;
+  margin-top: 5rem;
 }
 
 .jumbo {

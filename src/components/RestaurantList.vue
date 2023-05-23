@@ -228,6 +228,7 @@ h2 {
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   gap: 2rem;
+  margin-left: 1.2rem;
 }
 
 .child {

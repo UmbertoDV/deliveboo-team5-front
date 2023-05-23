@@ -1,25 +1,35 @@
 <template>
-    <!-- WAVES -->
-    <div class="svg-home">
-        <svg class="waves" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
-            xmlns:svgjs="http://svgjs.com/svgjs" width="1440" height="402" preserveAspectRatio="none"
-            viewBox="0 0 1440 402">
-            <g mask="url(&quot;#SvgjsMask1067&quot;)" fill="none">
-                <path
-                    d="M 0,89 C 32,93.6 96,114.4 160,112 C 224,109.6 256,71.2 320,77 C 384,82.8 416,146.6 480,141 C 544,135.4 576,45.8 640,49 C 704,52.2 736,153.6 800,157 C 864,160.4 896,68.4 960,66 C 1024,63.6 1056,140 1120,145 C 1184,150 1216,83.6 1280,91 C 1344,98.4 1408,163.8 1440,182L1440 402L0 402z"
-                    fill="rgba(245, 187, 0, 1)"></path>
-                <path
-                    d="M 0,207 C 41.2,230.2 123.6,308.6 206,323 C 288.4,337.4 329.6,266 412,279 C 494.4,292 535.6,389.4 618,388 C 700.4,386.6 741.6,275.8 824,272 C 906.4,268.2 947.6,368 1030,369 C 1112.4,370 1154,289.8 1236,277 C 1318,264.2 1399.2,299.4 1440,305L1440 402L0 402z"
-                    fill="rgba(255, 78, 0, 1)"></path>
-            </g>
-            <defs>
-                <mask id="SvgjsMask1067">
-                    <rect width="1440" height="402" fill="#ffffff"></rect>
-                </mask>
-            </defs>
-        </svg>
-        <!-- Logo -->
-        <!-- <div class="logo d-flex justify-content-center mt-5">
+  <!-- WAVES -->
+  <div class="svg-home">
+    <svg
+      class="waves"
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:svgjs="http://svgjs.com/svgjs"
+      width="1440"
+      height="402"
+      preserveAspectRatio="none"
+      viewBox="0 0 1440 402"
+    >
+      <g mask='url("#SvgjsMask1067")' fill="none">
+        <path
+          d="M 0,89 C 32,93.6 96,114.4 160,112 C 224,109.6 256,71.2 320,77 C 384,82.8 416,146.6 480,141 C 544,135.4 576,45.8 640,49 C 704,52.2 736,153.6 800,157 C 864,160.4 896,68.4 960,66 C 1024,63.6 1056,140 1120,145 C 1184,150 1216,83.6 1280,91 C 1344,98.4 1408,163.8 1440,182L1440 402L0 402z"
+          fill="rgba(245, 187, 0, 1)"
+        ></path>
+        <path
+          d="M 0,207 C 41.2,230.2 123.6,308.6 206,323 C 288.4,337.4 329.6,266 412,279 C 494.4,292 535.6,389.4 618,388 C 700.4,386.6 741.6,275.8 824,272 C 906.4,268.2 947.6,368 1030,369 C 1112.4,370 1154,289.8 1236,277 C 1318,264.2 1399.2,299.4 1440,305L1440 402L0 402z"
+          fill="rgba(255, 78, 0, 1)"
+        ></path>
+      </g>
+      <defs>
+        <mask id="SvgjsMask1067">
+          <rect width="1440" height="402" fill="#ffffff"></rect>
+        </mask>
+      </defs>
+    </svg>
+    <!-- Logo -->
+    <!-- <div class="logo d-flex justify-content-center mt-5">
             <svg id="Deliveboo" data-name="Livello 1" xmlns="http://www.w3.org/2000/svg" viewBox="-78 0 938.48 320.88">
                 <defs></defs>
                 <title>DELEVBOO-def</title>
@@ -61,40 +71,41 @@
                     d="M561.43,206.18a9.09,9.09,0,0,1-2.8,6.85,9.25,9.25,0,0,1-6.64,2.7,8.15,8.15,0,0,1-3.77-.89,8.67,8.67,0,0,1-2-1.45,7.93,7.93,0,0,1-2.49-6.07,8.54,8.54,0,0,1,2.86-6.89,9.8,9.8,0,0,1,6.58-2.44,8.74,8.74,0,0,1,5.92,2.07,6.24,6.24,0,0,1,.92,1h0A8.37,8.37,0,0,1,561.43,206.18Z" />
             </svg>
         </div> -->
-    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
 .cls-1 {
-    fill: none;
-    stroke: rgba(255, 78, 0, 1);
-    stroke-linecap: round;
-    stroke-miterlimit: 10;
-    stroke-width: 10px;
+  fill: none;
+  stroke: rgba(255, 78, 0, 1);
+  stroke-linecap: round;
+  stroke-miterlimit: 10;
+  stroke-width: 10px;
 }
 
 .cls-2 {
-    fill: rgba(255, 78, 0, 1);
+  fill: rgba(255, 78, 0, 1);
 }
 
 //SCSS
 .svg-home {
-    position: relative;
+  position: relative;
+  padding-top: 5.8rem;
 }
 
 .logo {
-    height: 70px;
+  height: 70px;
 }
 
 .waves {
-    transform: rotate(180deg);
-    width: 100vw;
+  transform: rotate(180deg);
+  width: 100vw;
 }
 
 #Deliveboo {
-    width: 700px;
-    fill: rgba(255, 78, 0, 1);
-    position: absolute;
-    top: 330px;
+  width: 700px;
+  fill: rgba(255, 78, 0, 1);
+  position: absolute;
+  top: 330px;
 }
 </style>

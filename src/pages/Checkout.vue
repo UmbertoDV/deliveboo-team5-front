@@ -2,22 +2,22 @@
 import Cart from "../components/Cart.vue";
 import axios from "axios";
 import { useCartStore } from "../store/cart.js";
-import { Form, Field, ErrorMessage } from 'vee-validate';
+import { Form, Field, ErrorMessage } from "vee-validate";
 
 export default {
   data() {
     return {
       store: useCartStore(),
       formData: {
-        name:'',
-        surname: '',
-        email: '',
-        address: '',
-        telephone: '',
-        note: '',
+        name: "",
+        surname: "",
+        email: "",
+        address: "",
+        telephone: "",
+        note: "",
         total: 0,
-        cart: []
-        
+        cart: [],
+
         // Aggiungi qui gli altri campi del form
       },
     };
@@ -36,7 +36,7 @@ export default {
     validateName(value) {
       // Nome è un campo vuoto
       if (!value) {
-        return 'Il nome è obbligatorio';
+        return "Il nome è obbligatorio";
       }
       // Tutto va bene
       return true;
@@ -44,7 +44,7 @@ export default {
     validateSurname(value) {
       // Nome è un campo vuoto
       if (!value) {
-        return 'Il cognome è obbligatorio';
+        return "Il cognome è obbligatorio";
       }
       // Tutto va bene
       return true;
@@ -52,19 +52,19 @@ export default {
     validateAddress(value) {
       // Nome è un campo vuoto
       if (!value) {
-        return 'L\'indirizzo è obbligatorio';
+        return "L'indirizzo è obbligatorio";
       }
       // Tutto va bene
       return true;
     },
     validateTelephone(value) {
-      var pattern = /[a-zA-Z]/
+      var pattern = /[a-zA-Z]/;
       // Nome è un campo vuoto
       if (!value) {
-        return 'Il telefono è obbligatorio';
+        return "Il telefono è obbligatorio";
       }
       if (pattern.test(value)) {
-        return 'Il numero non può contenere lettere';
+        return "Il numero non può contenere lettere";
       }
       // Tutto va bene
       return true;
@@ -72,19 +72,19 @@ export default {
     validateEmail(value) {
       // Email è un campo vuoto
       if (!value) {
-        return 'L\'email è obbligatoria';
+        return "L'email è obbligatoria";
       }
       // Email non valida
       const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
       if (!regex.test(value)) {
-        return 'L\'email deve essere valida';
+        return "L'email deve essere valida";
       }
       // Tutto va bene
       return true;
     },
     // FINE ROBA VALIDATION
     sendCart() {
-        const formDataStatic = {
+      const formDataStatic = {
         name: this.formData.name,
         surname: this.formData.surname,
         email: this.formData.email,
@@ -92,12 +92,12 @@ export default {
         telephone: this.formData.telephone,
         note: this.formData.note,
         cart: this.store.dishes,
-        total: this.store.totalPrice
-      }
+        total: this.store.totalPrice,
+      };
       axios
-      .post("http://127.0.0.1:8000/api/orders", formDataStatic)
-      .then((response) => console.log(response))
-      .catch((error) => {
+        .post("http://127.0.0.1:8000/api/orders", formDataStatic)
+        .then((response) => console.log(response))
+        .catch((error) => {
           // Gestisci eventuali errori della richiesta
           console.error(error);
         });
@@ -108,27 +108,26 @@ export default {
     },
   },
 
-  computed:{
-    takeDish(){
+  computed: {
+    takeDish() {
       cart = this.store.dishes;
       this.cart = cart;
       return cart;
-    }
-     
-  }
+    },
+  },
 };
 </script>
 
 <template>
-  <Cart @sendData="sendCart"/>
-  <div class="mt-3 form-register-ctn d-flex justify-content-center">
+  <Cart @sendData="sendCart" />
+  <div class="form-register-ctn d-flex justify-content-center form">
     <div class="row justify-content-center form-register">
       <div class="card my-3 reg-card">
         <div class="card-header">Registrazione</div>
 
         <div class="card-body">
           <Form
-            @submit="onSubmit" 
+            @submit="onSubmit"
             @submit.prevent=""
             action=""
             enctype="multipart/form-data"
@@ -152,7 +151,10 @@ export default {
                       autocomplete="name"
                       :rules="validateName"
                     />
-                    <ErrorMessage class="fw-bold text-danger tiny-text error-span" name="name" />
+                    <ErrorMessage
+                      class="fw-bold text-danger tiny-text error-span"
+                      name="name"
+                    />
                   </div>
                 </div>
 
@@ -173,7 +175,10 @@ export default {
                       autocomplete="surname"
                       :rules="validateSurname"
                     />
-                    <ErrorMessage class="fw-bold text-danger tiny-text error-span" name="surname" />
+                    <ErrorMessage
+                      class="fw-bold text-danger tiny-text error-span"
+                      name="surname"
+                    />
                   </div>
                 </div>
                 <div class="mb-4 row">
@@ -193,7 +198,10 @@ export default {
                       autocomplete="email"
                       :rules="validateEmail"
                     />
-                    <ErrorMessage class="fw-bold text-danger tiny-text error-span" name="email" />
+                    <ErrorMessage
+                      class="fw-bold text-danger tiny-text error-span"
+                      name="email"
+                    />
                   </div>
                 </div>
               </div>
@@ -216,7 +224,10 @@ export default {
                       autocomplete="address"
                       :rules="validateAddress"
                     />
-                    <ErrorMessage class="fw-bold text-danger tiny-text error-span" name="address" />
+                    <ErrorMessage
+                      class="fw-bold text-danger tiny-text error-span"
+                      name="address"
+                    />
                   </div>
                 </div>
 
@@ -236,7 +247,10 @@ export default {
                       name="telephone"
                       :rules="validateTelephone"
                     />
-                    <ErrorMessage class="fw-bold text-danger tiny-text error-span" name="telephone" />
+                    <ErrorMessage
+                      class="fw-bold text-danger tiny-text error-span"
+                      name="telephone"
+                    />
                   </div>
                 </div>
 
@@ -278,7 +292,10 @@ export default {
 <style land="scss" scoped>
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
 .tiny-text {
-    font-size: 14px;
+  font-size: 14px;
 }
 
+.form {
+  margin-top: 6rem;
+}
 </style>
