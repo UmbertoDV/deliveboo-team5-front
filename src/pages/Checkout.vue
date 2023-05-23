@@ -2,6 +2,7 @@
 import Cart from "../components/Cart.vue";
 import axios from "axios";
 import { useCartStore } from "../store/cart.js";
+import { Form, Field, ErrorMessage } from 'vee-validate';
 
 export default {
   data() {
@@ -23,8 +24,65 @@ export default {
   },
   components: {
     Cart,
+    Form,
+    Field,
+    ErrorMessage,
   },
   methods: {
+    // ROBA VALIDATION
+    onSubmit(values) {
+      console.log(JSON.stringify(values, null, 2));
+    },
+    validateName(value) {
+      // Nome è un campo vuoto
+      if (!value) {
+        return 'Il nome è obbligatorio';
+      }
+      // Tutto va bene
+      return true;
+    },
+    validateSurname(value) {
+      // Nome è un campo vuoto
+      if (!value) {
+        return 'Il cognome è obbligatorio';
+      }
+      // Tutto va bene
+      return true;
+    },
+    validateAddress(value) {
+      // Nome è un campo vuoto
+      if (!value) {
+        return 'L\'indirizzo è obbligatorio';
+      }
+      // Tutto va bene
+      return true;
+    },
+    validateTelephone(value) {
+      var pattern = /[a-zA-Z]/
+      // Nome è un campo vuoto
+      if (!value) {
+        return 'Il telefono è obbligatorio';
+      }
+      if (pattern.test(value)) {
+        return 'Il numero non può contenere lettere';
+      }
+      // Tutto va bene
+      return true;
+    },
+    validateEmail(value) {
+      // Email è un campo vuoto
+      if (!value) {
+        return 'L\'email è obbligatoria';
+      }
+      // Email non valida
+      const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+      if (!regex.test(value)) {
+        return 'L\'email deve essere valida';
+      }
+      // Tutto va bene
+      return true;
+    },
+    // FINE ROBA VALIDATION
     sendCart() {
         const formDataStatic = {
         name: this.formData.name,
@@ -69,11 +127,12 @@ export default {
         <div class="card-header">Registrazione</div>
 
         <div class="card-body">
-          <form
+          <Form
+            @submit="onSubmit" 
             @submit.prevent=""
             action=""
             enctype="multipart/form-data"
-            id="register-form"
+            id="user-info-form"
           >
             <div class="d-flex">
               <div class="col-6 right-register">
@@ -84,14 +143,16 @@ export default {
                     >Nome</label
                   >
                   <div class="col-md-6">
-                    <input
+                    <Field
                       v-model="formData.name"
                       id="name"
                       type="text"
                       class="form-control"
                       name="name"
                       autocomplete="name"
+                      :rules="validateName"
                     />
+                    <ErrorMessage class="fw-bold text-danger tiny-text error-span" name="name" />
                   </div>
                 </div>
 
@@ -103,14 +164,16 @@ export default {
                   >
 
                   <div class="col-md-6">
-                    <input
+                    <Field
                       v-model="formData.surname"
                       id="surname"
                       type="text"
                       class="form-control"
                       name="surname"
                       autocomplete="surname"
+                      :rules="validateSurname"
                     />
+                    <ErrorMessage class="fw-bold text-danger tiny-text error-span" name="surname" />
                   </div>
                 </div>
                 <div class="mb-4 row">
@@ -121,14 +184,16 @@ export default {
                   >
 
                   <div class="col-md-6">
-                    <input
+                    <Field
                       v-model="formData.email"
                       id="email"
                       type="email"
                       class="form-control"
                       name="email"
                       autocomplete="email"
+                      :rules="validateEmail"
                     />
+                    <ErrorMessage class="fw-bold text-danger tiny-text error-span" name="email" />
                   </div>
                 </div>
               </div>
@@ -142,14 +207,16 @@ export default {
                   >
 
                   <div class="col-md-6">
-                    <input
+                    <Field
                       v-model="formData.address"
                       id="address"
                       type="text"
                       class="form-control"
                       name="address"
                       autocomplete="address"
+                      :rules="validateAddress"
                     />
+                    <ErrorMessage class="fw-bold text-danger tiny-text error-span" name="address" />
                   </div>
                 </div>
 
@@ -161,13 +228,15 @@ export default {
                   >
 
                   <div class="col-md-6">
-                    <input
+                    <Field
                       v-model="formData.telephone"
                       id="telephone"
                       type="text"
                       class="form-control"
                       name="telephone"
+                      :rules="validateTelephone"
                     />
+                    <ErrorMessage class="fw-bold text-danger tiny-text error-span" name="telephone" />
                   </div>
                 </div>
 
@@ -179,16 +248,18 @@ export default {
                   >
 
                   <div class="col-md-6">
-                    <textarea
-                      v-model="formData.note"
-                      type="text"
-                      style="resize: none"
-                      class="form-control"
-                      name="description"
-                    ></textarea>
+                    <Field v-slot="{ field }" name="description">
+                      <textarea
+                        v-model="formData.note"
+                        style="resize: none"
+                        class="form-control"
+                        v-bind="field"
+                      ></textarea>
+                    </Field>
                   </div>
                   <button
                     @click="sendCart()"
+                    type="submit"
                     class="btn btn-violet me-2 p-3 mt-4"
                   >
                     Invia ordine
@@ -196,7 +267,7 @@ export default {
                 </div>
               </div>
             </div>
-          </form>
+          </Form>
         </div>
       </div>
     </div>
@@ -204,4 +275,10 @@ export default {
   <Footer />
 </template>
 
-<style land="scss" scoped></style>
+<style land="scss" scoped>
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
+.tiny-text {
+    font-size: 14px;
+}
+
+</style>
