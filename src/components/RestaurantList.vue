@@ -39,7 +39,6 @@ export default {
           this.restaurants.list = response.data;
 
           if (response.data.type) this.type = response.data.type;
-          console.log(response.data);
         })
         .catch((error) => {
           // TO DO: 404 !!!
@@ -58,7 +57,6 @@ export default {
         .get(endpoint)
         .then((response) => {
           this.types = response.data.types;
-          console.log(response.data.types);
         })
         .catch((error) => {
           // TO DO: 404 !!!

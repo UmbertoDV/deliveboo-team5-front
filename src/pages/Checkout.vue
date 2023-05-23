@@ -1,18 +1,22 @@
 <script>
 import Cart from "../components/Cart.vue";
 import axios from "axios";
+import { useCartStore } from "../store/cart.js";
 
 export default {
   data() {
     return {
+      store: useCartStore(),
       formData: {
-        name: this.name,
-        surname: this.surname,
-        email: this.email,
-        address: this.address,
-        telephone: this.telephone,
-        note: this.note,
-
+        name:'',
+        surname: '',
+        email: '',
+        address: '',
+        telephone: '',
+        note: '',
+        total: 0,
+        cart: []
+        
         // Aggiungi qui gli altri campi del form
       },
     };
@@ -22,21 +26,43 @@ export default {
   },
   methods: {
     sendCart() {
+        const formDataStatic = {
+        name: this.formData.name,
+        surname: this.formData.surname,
+        email: this.formData.email,
+        address: this.formData.address,
+        telephone: this.formData.telephone,
+        note: this.formData.note,
+        cart: this.store.dishes,
+        total: this.store.totalPrice
+      }
       axios
-        .post("http://127.0.0.1:8000/api/orders", formData)
-        .then((response) => (this.formData = response.data));
-      console.log(this.formData);
+      .post("http://127.0.0.1:8000/api/orders", formDataStatic)
+      .then((response) => console.log(response))
+      .catch((error) => {
+          // Gestisci eventuali errori della richiesta
+          console.error(error);
+        });
     },
 
     toggleCart() {
       this.isVisible == 1 ? (this.isVisible = 0) : (this.isVisible = 1);
     },
   },
+
+  computed:{
+    takeDish(){
+      cart = this.store.dishes;
+      this.cart = cart;
+      return cart;
+    }
+     
+  }
 };
 </script>
 
 <template>
-  <Cart />
+  <Cart @sendData="sendCart"/>
   <div class="mt-3 form-register-ctn d-flex justify-content-center">
     <div class="row justify-content-center form-register">
       <div class="card my-3 reg-card">
@@ -44,7 +70,7 @@ export default {
 
         <div class="card-body">
           <form
-            method="POST"
+            @submit.prevent=""
             action=""
             enctype="multipart/form-data"
             id="register-form"
@@ -59,7 +85,7 @@ export default {
                   >
                   <div class="col-md-6">
                     <input
-                      v-model="name"
+                      v-model="formData.name"
                       id="name"
                       type="text"
                       class="form-control"
@@ -78,7 +104,7 @@ export default {
 
                   <div class="col-md-6">
                     <input
-                      v-model="surname"
+                      v-model="formData.surname"
                       id="surname"
                       type="text"
                       class="form-control"
@@ -96,7 +122,7 @@ export default {
 
                   <div class="col-md-6">
                     <input
-                      v-model="email"
+                      v-model="formData.email"
                       id="email"
                       type="email"
                       class="form-control"
@@ -117,7 +143,7 @@ export default {
 
                   <div class="col-md-6">
                     <input
-                      v-model="address"
+                      v-model="formData.address"
                       id="address"
                       type="text"
                       class="form-control"
@@ -136,7 +162,7 @@ export default {
 
                   <div class="col-md-6">
                     <input
-                      v-model="telephone"
+                      v-model="formData.telephone"
                       id="telephone"
                       type="text"
                       class="form-control"
@@ -154,7 +180,7 @@ export default {
 
                   <div class="col-md-6">
                     <textarea
-                      v-model="note"
+                      v-model="formData.note"
                       type="text"
                       style="resize: none"
                       class="form-control"
@@ -162,7 +188,6 @@ export default {
                     ></textarea>
                   </div>
                   <button
-                    @submit.prevent="sendCart()"
                     @click="sendCart()"
                     class="btn btn-violet me-2 p-3 mt-4"
                   >
