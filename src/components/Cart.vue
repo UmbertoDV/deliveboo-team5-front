@@ -10,15 +10,15 @@ export default {
     };
   },
   created() {
-    console.log(this.store.dishes);
+    // console.log(this.store.dishes);
   },
   methods: {
     sendCart() {
-      axios
-        .post("http://127.0.0.1:8000/api/orders", {
-          cart: this.store.dishes,
-        })
-        .then((response) => console.log(response));
+      // axios
+      //   .post("http://127.0.0.1:8000/api/orders", {
+      //     cart: this.store.dishes,
+      //   })
+      //   .then((response) => console.log(response));
     },
     toggleCart() {
       this.isVisible == 1 ? (this.isVisible = 0) : (this.isVisible = 1);
