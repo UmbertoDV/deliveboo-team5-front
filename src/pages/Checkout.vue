@@ -1,10 +1,12 @@
 <script>
 import Cart from "../components/Cart.vue";
 import axios from "axios";
+import { useCartStore } from "../store/cart.js";
 
 export default {
   data() {
     return {
+      store: useCartStore(),
       formData: {
         name:'',
         surname: '',
@@ -12,8 +14,9 @@ export default {
         address: '',
         telephone: '',
         note: '',
-        dish: {}
-
+        total: 0,
+        cart: []
+        
         // Aggiungi qui gli altri campi del form
       },
     };
@@ -22,7 +25,7 @@ export default {
     Cart,
   },
   methods: {
-    sendCart($dish) {
+    sendCart() {
         const formDataStatic = {
         name: this.formData.name,
         surname: this.formData.surname,
@@ -30,12 +33,13 @@ export default {
         address: this.formData.address,
         telephone: this.formData.telephone,
         note: this.formData.note,
-        dish: this.formData.dish
-        }
+        cart: this.store.dishes,
+        total: this.store.totalPrice
+      }
       axios
-        .post("http://127.0.0.1:8000/api/orders", formDataStatic)
-        .then((response) => console.log(response))
-          .catch((error) => {
+      .post("http://127.0.0.1:8000/api/orders", formDataStatic)
+      .then((response) => console.log(response))
+      .catch((error) => {
           // Gestisci eventuali errori della richiesta
           console.error(error);
         });
@@ -45,6 +49,15 @@ export default {
       this.isVisible == 1 ? (this.isVisible = 0) : (this.isVisible = 1);
     },
   },
+
+  computed:{
+    takeDish(){
+      cart = this.store.dishes;
+      this.cart = cart;
+      return cart;
+    }
+     
+  }
 };
 </script>
 

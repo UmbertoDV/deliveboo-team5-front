@@ -92,9 +92,9 @@ export default {
         <button @click="store.deleteCart" class="btn btn-violet me-2 p-3">
           Annulla Ordine
         </button>
-        <button @submit.prevent="$emit('sendData', $dish, $dish.quantity)" class="btn btn-violet me-2 p-3">
-          Invia ordine
-        </button>
+        <router-link :to="{ name: 'checkout' }" class="btn btn-violet me-2 p-3">
+          Checkout
+        </router-link>
         <span class="total-n">{{ parseFloat(store.totalPrice).toFixed(2) }}€</span>
       </div>
     </div>

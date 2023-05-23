@@ -149,16 +149,11 @@ export const useCartStore = defineStore("cart", {
         dish["quantity"] = 1;
 
         this.currentRestaurant = dish.restaurant_id;
-        console.log(
-          "id del ristorante collegato al piatto con restaurant-id = " +
-            dish.restaurant_id
-        );
         this.totalPrice += dish.price;
         if ((this.currentRestaurant = dish.restaurant_id)) {
           this.dishes.push(dish);
         }
       }
-      console.log(isAlreadyInCart);
     },
     deleteDish(key) {
       delete this.dishes[key];
@@ -197,7 +192,7 @@ export const useCartStore = defineStore("cart", {
         if (dish.id == otherDishes.id) {
           otherDishes.quantity += 1;
           this.totalPrice += dish.price;
-          index += 1;
+          // index += 1;
         }
       }
     },

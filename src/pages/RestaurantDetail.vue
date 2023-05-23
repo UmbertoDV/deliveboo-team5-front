@@ -37,7 +37,6 @@ export default {
   methods: {
     fetchRest() {
       this.isLoading = true;
-      console.log(this.store.dishes);
       axios
         .get("http://127.0.0.1:8000/api/restaurants/" + this.$route.params.id)
         .then((response) => {
