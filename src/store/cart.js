@@ -198,5 +198,9 @@ export const useCartStore = defineStore("cart", {
       }
     },
   },
+
+  numeroPiattiCart() {
+    return this.store.dishes.length;
+  },
   getters: {},
 });

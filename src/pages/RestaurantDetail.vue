@@ -11,7 +11,7 @@ export default {
       myIndex: [],
       isLoading: false,
       currentRest: null,
-      showAlert: null,
+      piattiCart: [],
     };
   },
   created() {
@@ -29,9 +29,9 @@ export default {
       console.log("****" + this.myIndex);
     },
 
-    show() {
-      this.showAlert = this.store.showAlert;
-    },
+    // show() {
+    //   this.showAlert = this.store.showAlert;
+    // },
   },
 
   methods: {
@@ -56,7 +56,7 @@ export default {
     <div
       :class="alertClasses"
       role="alert"
-      v-if="showAlert == true"
+      v-if="showAlert"
       class="d-flex position-absolute card"
     ></div>
     <h2 class="alert-heading">Non puoi ordinare da due ristoranti diversi!</h2>
