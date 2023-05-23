@@ -140,12 +140,11 @@ export const useCartStore = defineStore("cart", {
         if (piattiRistoranteDiverso) {
           this.alertClasses = "alert alert-warning";
           window.alert("Non puoi ordinare da due diversi ristoranti!");
-          this.dishes = [];
-          this.totalPrice = 0;
-          this.showAlert = true;
-          return; // Interrompi l'esecuzione della funzione per evitare di aggiungere il piatto al carrello
+          //   this.dishes = [];
+          //   this.totalPrice = 0;
+          //   this.showAlert = true;
+          //   return; // Interrompi l'esecuzione della funzione per evitare di aggiungere il piatto al carrello
         }
-
         dish["quantity"] = 1;
 
         this.currentRestaurant = dish.restaurant_id;
