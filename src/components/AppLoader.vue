@@ -12,7 +12,7 @@ export default {
 
 <template>
   <div class="body-loader">
-    <div class="logo_deliveboo me-3">
+    <div class="logo_deliveboo">
       <svg
         id="Deliveboo"
         data-name="Deliveboo"

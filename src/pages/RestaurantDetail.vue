@@ -99,7 +99,9 @@ export default {
                 <div class="card-body pt-0">
                   <h4 class="card-title tit mt-3">{{ dish.name }}</h4>
                   <p class="card-text mb-3">{{ dish.description }}</p>
-                  <div class="price">{{ parseFloat(dish.price).toFixed(2) }} €</div>
+                  <div class="price">
+                    {{ parseFloat(dish.price).toFixed(2) }} €
+                  </div>
 
                   <div
                     class="btn btn-violet-home mt-3 d-flex justify-content-center align-items-center gap-2"
