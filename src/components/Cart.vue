@@ -31,6 +31,10 @@ export default {
       );
     },
   },
+
+  emits: [
+    'sendData'
+  ]
 };
 </script>
 <template>
@@ -88,7 +92,7 @@ export default {
         <button @click="store.deleteCart" class="btn btn-violet me-2 p-3">
           Annulla Ordine
         </button>
-        <button @click="sendCart()" class="btn btn-violet me-2 p-3">
+        <button @submit.prevent="$emit('sendData', $dish, $dish.quantity)" class="btn btn-violet me-2 p-3">
           Invia ordine
         </button>
         <span class="total-n">{{ parseFloat(store.totalPrice).toFixed(2) }}€</span>

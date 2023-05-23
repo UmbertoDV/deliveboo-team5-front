@@ -12,6 +12,7 @@ export default {
         address: '',
         telephone: '',
         note: '',
+        dish: {}
 
         // Aggiungi qui gli altri campi del form
       },
@@ -21,14 +22,15 @@ export default {
     Cart,
   },
   methods: {
-    sendCart() {
+    sendCart($dish) {
         const formDataStatic = {
         name: this.formData.name,
         surname: this.formData.surname,
         email: this.formData.email,
         address: this.formData.address,
         telephone: this.formData.telephone,
-        note: this.formData.note
+        note: this.formData.note,
+        dish: this.formData.dish
         }
       axios
         .post("http://127.0.0.1:8000/api/orders", formDataStatic)
@@ -47,7 +49,7 @@ export default {
 </script>
 
 <template>
-  <Cart />
+  <Cart @sendData="sendCart"/>
   <div class="mt-3 form-register-ctn d-flex justify-content-center">
     <div class="row justify-content-center form-register">
       <div class="card my-3 reg-card">
