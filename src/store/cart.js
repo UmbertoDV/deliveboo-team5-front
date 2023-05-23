@@ -113,6 +113,7 @@ export const useCartStore = defineStore("cart", {
   },
   actions: {
     addDish(dish) {
+      dish.price = parseFloat(dish.price);
       let isAlreadyInCart = 0;
       this.showAlert = false;
       for (let otherDishes of this.dishes) {
@@ -130,6 +131,7 @@ export const useCartStore = defineStore("cart", {
           }
         }
       } else {
+        dish.price = parseFloat(dish.price);
         // Verifica se nel carrello sono già presenti piatti di ristoranti diversi
         const piattiRistoranteDiverso = this.dishes.some(
           (d) => d.restaurant_id !== this.currentRestaurant
@@ -166,6 +168,7 @@ export const useCartStore = defineStore("cart", {
       this.totalPrice = 0;
     },
     minusOne(dish) {
+      dish.price = parseFloat(dish.price);
       if (dish["quantity"] == 1) {
         let i = 0;
         for (let otherDishes of this.dishes) {
@@ -189,6 +192,7 @@ export const useCartStore = defineStore("cart", {
       }
     },
     moreOne(dish) {
+      dish.price = parseInt(dish.price);
       for (let otherDishes of this.dishes) {
         if (dish.id == otherDishes.id) {
           otherDishes.quantity += 1;

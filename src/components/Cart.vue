@@ -91,10 +91,10 @@ export default {
         <button @click="sendCart()" class="btn btn-violet me-2 p-3">
           Invia ordine
         </button>
-        <span class="total-n">{{ store.totalPrice }}€</span>
+        <span class="total-n">{{ parseFloat(store.totalPrice).toFixed(2) }}€</span>
       </div>
     </div>
-  </div>
+</div>
 </template>
 
 <style lang="scss">
