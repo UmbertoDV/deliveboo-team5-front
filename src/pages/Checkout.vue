@@ -1,29 +1,33 @@
 <script>
 import Cart from "../components/Cart.vue";
+import axios from "axios";
 
 export default {
   data() {
-    return {};
+    return {
+      formData: {
+        name: this.name,
+        surname: this.surname,
+        email: this.email,
+        address: this.address,
+        telephone: this.telephone,
+        note: this.note,
+
+        // Aggiungi qui gli altri campi del form
+      },
+    };
   },
   components: {
     Cart,
   },
   methods: {
     sendCart() {
-       const formData = {
-        name: this.name,
-        surname: this.surname,
-        email: this.email,
-        address: this.address,
-        telephone: this.telephone,
-        note: this.note
-
-        // Aggiungi qui gli altri campi del form
-      };
       axios
         .post("http://127.0.0.1:8000/api/orders", formData)
-        .then((response) => console.log(response));
+        .then((response) => (this.formData = response.data));
+      console.log(this.formData);
     },
+
     toggleCart() {
       this.isVisible == 1 ? (this.isVisible = 0) : (this.isVisible = 1);
     },
@@ -55,12 +59,11 @@ export default {
                   >
                   <div class="col-md-6">
                     <input
-                    v-model="name"
+                      v-model="name"
                       id="name"
                       type="text"
                       class="form-control"
                       name="name"
-                      
                       autocomplete="name"
                     />
                   </div>
@@ -75,12 +78,11 @@ export default {
 
                   <div class="col-md-6">
                     <input
-                    v-model="surname"
+                      v-model="surname"
                       id="surname"
                       type="text"
                       class="form-control"
                       name="surname"
-                      
                       autocomplete="surname"
                     />
                   </div>
@@ -94,12 +96,11 @@ export default {
 
                   <div class="col-md-6">
                     <input
-                    v-model="email"
+                      v-model="email"
                       id="email"
                       type="email"
                       class="form-control"
                       name="email"
-                      
                       autocomplete="email"
                     />
                   </div>
@@ -116,12 +117,11 @@ export default {
 
                   <div class="col-md-6">
                     <input
-                    v-model="address"
+                      v-model="address"
                       id="address"
                       type="text"
                       class="form-control"
                       name="address"
-                     
                       autocomplete="address"
                     />
                   </div>
@@ -136,12 +136,11 @@ export default {
 
                   <div class="col-md-6">
                     <input
-                    v-model="telephone"
+                      v-model="telephone"
                       id="telephone"
                       type="text"
                       class="form-control"
                       name="telephone"
-                    
                     />
                   </div>
                 </div>
@@ -155,15 +154,15 @@ export default {
 
                   <div class="col-md-6">
                     <textarea
-                    v-model="note"
+                      v-model="note"
                       type="text"
                       style="resize: none"
                       class="form-control"
                       name="description"
-                      
                     ></textarea>
                   </div>
                   <button
+                    @submit.prevent="sendCart()"
                     @click="sendCart()"
                     class="btn btn-violet me-2 p-3 mt-4"
                   >

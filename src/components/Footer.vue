@@ -33,7 +33,7 @@
         <div class="buttons-footer d-flex flex-column justify-content-end pe-3">
           Sei un ristoratore?
           <button type="button">
-            <span>Iscriviti</span>
+            <a href="http://127.0.0.1:8000/register">Iscriviti</a>
           </button>
         </div>
       </div>
@@ -69,6 +69,11 @@
 </template>
 
 <style lang="scss" scoped>
+a {
+  color: white;
+  font-size: 1.3rem;
+  text-decoration: none;
+}
 svg {
   width: 100vw;
   position: absolute;
