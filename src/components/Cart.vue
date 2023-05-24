@@ -9,9 +9,7 @@ export default {
       currentRest: null,
     };
   },
-  created() {
-    // console.log(this.store.dishes);
-  },
+
   methods: {
     sendCart() {
       // axios
@@ -26,9 +24,13 @@ export default {
 
     filterResult(restaurant_id) {
       this.currentRest = this.store.currentRestaurant;
-      return this.store.dishes.filter(
-        (dish) => dish.restaurant_id === restaurant_id
-      );
+
+      if(this.currentRest != restaurant_id){
+        return this.store.dishes
+      }
+      // return this.store.dishes.filter(
+      //   (dish) => dish.restaurant_id === restaurant_id
+      // );
     },
   },
 
@@ -59,7 +61,7 @@ export default {
       </div>
 
       <div class="d-flex flex-column gap-3">
-        <div v-for="dish in filterResult(this.currentRest)" class="d-flex gap-2 align-items-center items p-2">
+        <div v-for="dish in this.store.dishes" class="d-flex gap-2 align-items-center items p-2">
           <div class="flex-grow-1">
             {{ dish.name }}
           </div>
@@ -75,7 +77,7 @@ export default {
           </div>
         </div>
       </div>
-      <div class="d-flex align-items-center justify-content-end">
+      <div class="d-flex align-items-center justify-content-end" v-if="this.store.dishes.length">
         <button @click="store.deleteCart" class="btn btn-violet me-2 p-3">
           Annulla Ordine
         </button>
