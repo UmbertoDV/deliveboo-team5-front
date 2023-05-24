@@ -2,6 +2,7 @@
 import axios from "axios";
 import AppHeader from "./AppHeader.vue";
 import RestaurantCard from "./RestaurantCard.vue";
+import Pagination from "vue-pagination";
 
 export default {
   data() {
@@ -12,6 +13,9 @@ export default {
         list: [],
         pages: [],
       },
+
+      perPage: 8, // Numero di ristoranti per pagina
+      currentPage: 1, // Pagina corrente
 
       types: [],
       selectedCategories: [],
@@ -37,12 +41,13 @@ export default {
         .get(endpoint)
         .then((response) => {
           this.restaurants.list = response.data;
+          this.paginateRestaurants(1); // Inizializza la paginazione
 
           if (response.data.type) this.type = response.data.type;
         })
         .catch((error) => {
           // TO DO: 404 !!!
-          this.errorMess = err.message;
+          this.errorMess = error.message;
         })
         .finally(() => {
           this.isLoading = false;
@@ -60,7 +65,7 @@ export default {
         })
         .catch((error) => {
           // TO DO: 404 !!!
-          this.errorMess = err.message;
+          this.errorMess = error.message;
         })
         .finally(() => {
           this.isLoading = false;
@@ -75,6 +80,24 @@ export default {
       const left = document.querySelector(".scroll-images");
       left.scrollBy(200, 0);
     },
+
+    paginateRestaurants(page) {
+      this.currentPage = page;
+    },
+
+    previousPage() {
+      if (this.currentPage > 1) {
+        this.currentPage -= 1;
+      }
+    },
+    nextPage() {
+      if (this.currentPage < this.totalRestaurants) {
+        this.currentPage += 1;
+      }
+    },
+    goToPage(page) {
+      this.currentPage = page;
+    },
   },
 
   computed: {
@@ -85,8 +108,30 @@ export default {
         return `http://127.0.0.1:8000/api/type/${this.$route.params.type_id}/restaurants`;
       return "http://127.0.0.1:8000/api/restaurants";
     },
-  },
 
+    // Calcola il numero totale di ristoranti
+    totalRestaurants() {
+      return this.restaurants.list.length;
+    },
+    // Restituisci solo i ristoranti per la pagina corrente
+    paginatedRestaurants() {
+      const startIndex = (this.currentPage - 1) * this.perPage;
+      const endIndex = startIndex + this.perPage;
+      return this.restaurants.list.slice(startIndex, endIndex);
+    },
+
+    totalPages() {
+      return Math.ceil(this.totalRestaurants / this.perPage);
+    },
+    currentPage: {
+      get() {
+        return this.value;
+      },
+      set(page) {
+        this.$emit("input", page);
+      },
+    },
+  },
   created() {
     this.fetchRestaurants();
     this.fetchTypes();
@@ -141,11 +186,11 @@ export default {
     <h2 v-if="typeOfRequest == 'all'">Tutti i ristoranti</h2>
 
     <div
-      v-if="restaurants.list.length"
       class="row row-cols- gap-3 justify-content-center mt-5 gradient-2"
+      v-if="totalRestaurants"
     >
       <RestaurantCard
-        v-for="restaurant in restaurants.list"
+        v-for="restaurant in paginatedRestaurants"
         :key="restaurant.id"
         :restaurant="restaurant"
       />
@@ -153,9 +198,55 @@ export default {
 
     <h2 v-else>Non ci sono ristoranti</h2>
   </div>
+  <!-- Aggiungi il componente di paginazione -->
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li :class="{ disabled: currentPage === 1 }" class="page-item">
+        <a @click="previousPage" class="page-link">&laquo;</a>
+      </li>
+      <li
+        v-for="pageNumber in totalPages"
+        :key="pageNumber"
+        :class="{ active: currentPage === pageNumber }"
+        class="page-item"
+      >
+        <a @click="goToPage(pageNumber)" class="page-link">{{ pageNumber }}</a>
+      </li>
+      <li :class="{ disabled: currentPage === totalPages }" class="page-item">
+        <a @click="nextPage" class="page-link">&raquo;</a>
+      </li>
+    </ul>
+  </nav>
 </template>
 
 <style lang="scss" scoped>
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination li {
+  display: inline;
+}
+
+.pagination li a {
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #000;
+  border: 1px solid #ddd;
+}
+
+.pagination li.disabled a {
+  color: #bbb;
+  cursor: not-allowed;
+}
+
+.pagination li.active a {
+  background-color: #007bff;
+  color: #fff;
+}
 .gradient-2 {
   background: linear-gradient(334deg, #6b97f7, #5d4df5, #f7137e);
   background-size: 180% 180%;

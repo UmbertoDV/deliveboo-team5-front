@@ -105,6 +105,8 @@ export default {
         })
         .finally(() => {
           this.$router.push("/thank-you");
+          this.store.dishes = [];
+          this.store.totalPrice = 0;
         });
     },
 
