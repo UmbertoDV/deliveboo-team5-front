@@ -90,7 +90,7 @@
 //SCSS
 .svg-home {
   position: relative;
-  padding-top: 5.8rem;
+  padding-top: 5.4rem;
 }
 
 .logo {
