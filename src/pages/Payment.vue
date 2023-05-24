@@ -11,9 +11,7 @@ export default {
     
   },
   methods: {
-    processPayment() {
-      this.pagamentoConfermato = true;
-    }
+    
   },
   mounted() {
     var button = document.querySelector('#submit-button');
@@ -21,16 +19,15 @@ export default {
     braintree.dropin.create({
       authorization: 'sandbox_g42y39zw_348pk9cgf3bgyw2b',
       selector: '#dropin-container'
-    }, function (err, instance) {
+    },
+    function (err, instance) {
       button.addEventListener('click', function () {
         instance.requestPaymentMethod(function (err, payload) {
-          if(payload.details.cardholderName == null){
-            console.log("sono dentro");
-            console.log(payload.details.cardholderName);
-            console.log(pagamentoConfermato);
-            pagamentoConfermato = true;
-            console.log(pagamentoConfermato);
-          };
+          if(err){
+            alert("Inserisci i dati corretti")
+          } else {
+            window.location.href = "conf-payment.html";
+          }
         });
       })
     });
@@ -42,7 +39,7 @@ export default {
   <div class="container pt-personal">
     <div v-if="!pagamentoConfermato">
       <div id="dropin-container"></div>
-      <button id="submit-button" @click="processPayment" class="btn btn-success">Purchase</button> <br>
+      <button id="submit-button" class="btn btn-success">Purchase</button> <br>
     </div>
 
     <!-- <div v-if="showDropIn">
