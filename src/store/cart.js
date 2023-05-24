@@ -109,6 +109,10 @@ export const useCartStore = defineStore("cart", {
       currentRestaurant: null,
       showAlert: false,
       alertClasses: "",
+
+      clearCart() {
+        this.dishes = [];
+      },
     };
   },
   actions: {

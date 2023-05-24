@@ -4,6 +4,7 @@ import RestaurantDetail from "../pages/RestaurantDetail.vue";
 import RestaurantListPage from "../pages/RestaurantListPage.vue";
 import TypeRestaurantsPage from "../pages/TypeRestaurantsPage.vue";
 import Checkout from "../pages/Checkout.vue";
+import ThankYou from "../pages/ThankYou.vue";
 import Cart from "../components/Cart.vue";
 
 const router = createRouter({
@@ -40,6 +41,11 @@ const router = createRouter({
       path: "/checkout",
       name: "checkout",
       component: Checkout,
+    },
+    {
+      path: "/thank-you",
+      name: "thankyou",
+      component: ThankYou,
     },
   ],
 });

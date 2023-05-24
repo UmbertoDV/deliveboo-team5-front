@@ -3,6 +3,7 @@ import Cart from "../components/Cart.vue";
 import axios from "axios";
 import { useCartStore } from "../store/cart.js";
 import { Form, Field, ErrorMessage } from "vee-validate";
+import ThankYou from "./thankyou.vue";
 
 export default {
   data() {
@@ -27,6 +28,7 @@ export default {
     Form,
     Field,
     ErrorMessage,
+    ThankYou,
   },
   methods: {
     // ROBA VALIDATION
@@ -100,6 +102,9 @@ export default {
         .catch((error) => {
           // Gestisci eventuali errori della richiesta
           console.error(error);
+        })
+        .finally(() => {
+          this.$router.push("/thank-you");
         });
     },
 
@@ -122,7 +127,7 @@ export default {
   <Cart @sendData="sendCart" />
   <div class="form-register-ctn d-flex justify-content-center form">
     <div class="row justify-content-center form-register">
-      <div class="card my-3 reg-card">
+      <div class="card my-3 reg-card p-0">
         <div class="card-header">Registrazione</div>
 
         <div class="card-body">
@@ -206,7 +211,7 @@ export default {
                 </div>
               </div>
 
-              <div lass="col-6 left-register">
+              <div lass="col-6 left-register d-flex flex-column">
                 <div class="mb-4 row">
                   <label
                     for="address"
@@ -271,10 +276,14 @@ export default {
                       ></textarea>
                     </Field>
                   </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4"></div>
                   <button
                     @click="sendCart()"
                     type="submit"
-                    class="btn btn-violet me-2 p-3 mt-4"
+                    class="btn btn-violet me-2 p-3 mt-4 col-md-6"
                   >
                     Invia ordine
                   </button>
