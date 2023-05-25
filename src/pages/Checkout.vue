@@ -1,3 +1,4 @@
+
 <script>
 import Cart from "../components/Cart.vue";
 import Payment from "../pages/Payment.vue";
@@ -12,6 +13,13 @@ export default {
     return {
       store: useCartStore(),
       datiCorretti: false,
+      datiCorrettiName: false,
+      datiCorrettiSurname: false,
+      datiCorrettiAddress:false,
+      datiCorrettiTelephone:false,
+      datiCorrettiEmail:false,
+
+
       formData: {
         name: "",
         surname: "",
@@ -41,67 +49,67 @@ export default {
     validateName(value) {
       // Nome è un campo vuoto
       if (!value) {
-        this.datiCorrettiImput = false;
+        this.datiCorrettiName = false;
         return "Il nome è obbligatorio";
       }
       // Tutto va bene
-       this.datiCorretti = true;
+       this.datiCorrettiName = true;
       return true;
     },
     validateSurname(value) {
       // Nome è un campo vuoto
       if (!value) {
-        this.datiCorretti = false;
+        this.datiCorrettiSurname = false;
         return "Il cognome è obbligatorio";
       }
       // Tutto va bene
-      this.datiCorretti = true;
+      this.datiCorrettiSurname = true;
       return true;
     },
     validateAddress(value) {
       // Nome è un campo vuoto
       if (!value) {
-        this.datiCorretti = false;
+        this.datiCorrettiAddress = false;
         return "L'indirizzo è obbligatorio";
       }
       // Tutto va bene
-      this.datiCorretti = true;
+      this.datiCorrettiAddress = true;
       return true;
     },
     validateTelephone(value) {
       var pattern = /[a-zA-Z]/;
       // Nome è un campo vuoto
       if (!value) {
-        this.datiCorretti = false;
+        this.datiCorrettiTelephone = false;
         return "Il telefono è obbligatorio";
       }
       if (pattern.test(value)) {
-        this.datiCorretti = false;
+        this.datiCorrettiTelephone = false;
         return "Il numero non può contenere lettere";
       }
       // Tutto va bene
-      this.datiCorretti = true;
+      this.datiCorrettiTelephone = true;
       return true;
     },
     validateEmail(value) {
       // Email è un campo vuoto
       if (!value) {
-        this.datiCorretti = false;
+        this.datiCorrettiEmail = false;
         return "L'email è obbligatoria";
       }
       // Email non valida
       const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
       if (!regex.test(value)) {
-        this.datiCorretti = false;
+        this.datiCorrettiEmail = false;
         return "L'email deve essere valida";
       }
       // Tutto va bene
-      this.datiCorretti = true;
+      this.datiCorrettiEmail = true;
       return true;
     },
     // FINE ROBA VALIDATION
     sendCart() {
-      if(this.datiCorretti){
+      if(this.datiCorrettiName && this.datiCorrettiSurname && this.datiCorrettiEmail && this.datiCorrettiTelephone &&this.datiCorrettiAddress){
         const formDataStatic = {
           name: this.formData.name,
           surname: this.formData.surname,
@@ -145,8 +153,10 @@ export default {
 
 <template>
   <Cart />
+  <div class="container d-flex flex-column align-items-center mt-5 title">
+    <h4 v-if="!(this.datiCorrettiName && this.datiCorrettiSurname && this.datiCorrettiEmail && this.datiCorrettiTelephone &&this.datiCorrettiAddress)" class="">Compila tutti i campi!</h4>
+    <h4 v-else class="text-success">Procedi al pagamento!</h4>
   <div class="form-register-ctn d-flex justify-content-center form">
-    <h2 v-if="!datiCorretti">inserici i dati</h2>
     <div class="row justify-content-center form-register">
       <div class="card my-3 reg-card p-0">
         <div class="card-header">Inserire i dati per la spedizione</div>
@@ -310,16 +320,25 @@ export default {
       </div>
     </div>
   </div>
+  </div>
   <Footer />
 </template>
 
 <style land="scss" scoped>
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
+
+.title h4{
+  margin-top:3rem;
+}
 .tiny-text {
   font-size: 14px;
 }
 
 .form {
-  margin-top: 6rem;
+  margin-top: 1rem;
+}
+
+h4{
+  color: rgba(255, 78, 0, 1);
 }
 </style>

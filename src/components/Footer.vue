@@ -39,30 +39,36 @@
       </div>
       <!-- Link Footer -->
       <div class="link-footer d-flex pe-5 ps-5 gap-5">
+        <div>
+          <h4>Su di noi</h4>
+          <ul>
+             <li>Informazioni su Deliveboo</li>
+            <li>Diventa Partner</li>
+            <li>Lavora con noi</li>
+            <li>Diventa un rider su Deliveb</li>
+            <li>Politica dei Cookies</li>
+            <li>Sostenbilità</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Aiuto</h4>
         <ul>
-          <li>Link</li>
-          <li>Link</li>
-          <li>Link</li>
-          <li>Link</li>
-          <li>Link</li>
-          <li>Link</li>
+          <li>Contatti</li>
+          <li>Diventa Partner</li>
+          <li>FAQ</li>
+          <li>Tipi di cucina</li>
+          <li>Politica dei Cookies</li>
+          <li>Sostenbilità</li>
         </ul>
-        <ul>
-          <li>Link</li>
-          <li>Link</li>
-          <li>Link</li>
-          <li>Link</li>
-          <li>Link</li>
-          <li>Link</li>
-        </ul>
-        <ul>
-          <li>Link</li>
-          <li>Link</li>
-          <li>Link</li>
-          <li>Link</li>
-          <li>Link</li>
-          <li>Link</li>
-        </ul>
+        </div>
+         <div>
+            <h4>Note legali</h4>
+          <ul>
+            <li>Termini e condizioni</li>
+            <li>Informativa sulla privacy</li>
+            <li>Cookies</li>
+          </ul>
+          </div>
       </div>
     </div>
   </footer>
@@ -124,9 +130,10 @@ footer {
   width: 100%;
 
   ul {
-    width: 10%;
     font-size: 1rem;
     line-height: 2rem;
+    list-style: none;
+   padding-left: 0!important;
   }
 }
 </style>

@@ -107,7 +107,7 @@ export default {
 }
 
 .navbar {
-  z-index: 1;
+  z-index: 3;
   font-size: 1.2rem;
   color: white;
   width: 100vw;
