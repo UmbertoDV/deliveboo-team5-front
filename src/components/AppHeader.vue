@@ -16,7 +16,7 @@ export default {
 <template>
   <nav class="navbar navbar-expand-lg navbar-deliveboo">
     <div class="container">
-      <div class="logo_deliveboo me-3">
+      <div class="logo_deliveboo me-3 d-flex align-items-center">
         <svg
           id="Deliveboo"
           data-name="Deliveboo"
@@ -63,8 +63,11 @@ export default {
             d="M191.55,134.31a8.09,8.09,0,0,1-2.5,6.1,8.25,8.25,0,0,1-5.92,2.4,7.31,7.31,0,0,1-5.17-2.08,7.11,7.11,0,0,1-2.21-5.41,7.63,7.63,0,0,1,2.54-6.14,8.86,8.86,0,0,1,2.25-1.42l-2-7.61a19.38,19.38,0,0,1,4.84-2l2.57,9.06a7.28,7.28,0,0,1,3.5,1.67A6.83,6.83,0,0,1,191.55,134.31Z"
           />
         </svg>
+        <router-link :to="{ name: 'home' }" class="nav-link me-3"
+              >Homepage</router-link
+            >
       </div>
-      <button
+      <!-- <button
         class="navbar-toggler"
         type="button"
         data-bs-toggle="collapse"
@@ -74,14 +77,12 @@ export default {
         aria-label="Toggle navigation"
       >
         <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <router-link :to="{ name: 'home' }" class="nav-link me-3"
-            >Homepage</router-link
-          >
-        </ul>
-      </div>
+      </button> -->
+      <!-- <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav"> -->
+          
+        <!-- </ul>
+      </div> -->
       <Cart />
     </div>
   </nav>
