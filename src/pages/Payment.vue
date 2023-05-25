@@ -10,9 +10,9 @@ export default {
     };
     
   },
-  methods: {
-    
-  },
+  emits: [
+    "sendCart"
+  ],
   mounted() {
     var button = document.querySelector('#submit-button');
     let pagamentoConfermato = false;
@@ -24,9 +24,9 @@ export default {
       button.addEventListener('click', function () {
         instance.requestPaymentMethod(function (err, payload) {
           if(err){
-            alert("Inserisci i dati corretti")
+            let datiCorretti = false
           } else {
-            window.location.href = "conf-payment.html";
+            // window.location.href = "conf-payment.html";
           }
         });
       })
@@ -36,10 +36,13 @@ export default {
 </script>
 
 <template>
-  <div class="container pt-personal">
+  <div class="container">
     <div v-if="!pagamentoConfermato">
       <div id="dropin-container"></div>
-      <button id="submit-button" class="btn btn-success">Purchase</button> <br>
+      <div
+       id="submit-button" 
+       class="btn btn-success"
+       @click="$emit('sendCart', datiCorretti)">Paga</div> <br>
     </div>
 
     <!-- <div v-if="showDropIn">
@@ -56,7 +59,7 @@ export default {
         <i class="checkmark">✓</i>
       </div>
       <h1>Perfetto</h1> 
-      <p>Ti abbiamo preso i soldi<br/> Adios! Ariba Ariba</p>
+      <p>Grazie per l'acquisto!<br/> Ritorna presto da noi!</p>
     </div>
   </div>
 </template>

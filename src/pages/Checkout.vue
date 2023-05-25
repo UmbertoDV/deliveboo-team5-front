@@ -1,14 +1,17 @@
 <script>
 import Cart from "../components/Cart.vue";
+import Payment from "../pages/Payment.vue";
 import axios from "axios";
 import { useCartStore } from "../store/cart.js";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import ThankYou from "./thankyou.vue";
 
+
 export default {
   data() {
     return {
       store: useCartStore(),
+      datiCorretti: false,
       formData: {
         name: "",
         surname: "",
@@ -18,7 +21,6 @@ export default {
         note: "",
         total: 0,
         cart: [],
-
         // Aggiungi qui gli altri campi del form
       },
     };
@@ -29,6 +31,7 @@ export default {
     Field,
     ErrorMessage,
     ThankYou,
+    Payment
   },
   methods: {
     // ROBA VALIDATION
@@ -38,76 +41,91 @@ export default {
     validateName(value) {
       // Nome è un campo vuoto
       if (!value) {
+        this.datiCorrettiImput = false;
         return "Il nome è obbligatorio";
       }
       // Tutto va bene
+       this.datiCorretti = true;
       return true;
     },
     validateSurname(value) {
       // Nome è un campo vuoto
       if (!value) {
+        this.datiCorretti = false;
         return "Il cognome è obbligatorio";
       }
       // Tutto va bene
+      this.datiCorretti = true;
       return true;
     },
     validateAddress(value) {
       // Nome è un campo vuoto
       if (!value) {
+        this.datiCorretti = false;
         return "L'indirizzo è obbligatorio";
       }
       // Tutto va bene
+      this.datiCorretti = true;
       return true;
     },
     validateTelephone(value) {
       var pattern = /[a-zA-Z]/;
       // Nome è un campo vuoto
       if (!value) {
+        this.datiCorretti = false;
         return "Il telefono è obbligatorio";
       }
       if (pattern.test(value)) {
+        this.datiCorretti = false;
         return "Il numero non può contenere lettere";
       }
       // Tutto va bene
+      this.datiCorretti = true;
       return true;
     },
     validateEmail(value) {
       // Email è un campo vuoto
       if (!value) {
+        this.datiCorretti = false;
         return "L'email è obbligatoria";
       }
       // Email non valida
       const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
       if (!regex.test(value)) {
+        this.datiCorretti = false;
         return "L'email deve essere valida";
       }
       // Tutto va bene
+      this.datiCorretti = true;
       return true;
     },
     // FINE ROBA VALIDATION
     sendCart() {
-      const formDataStatic = {
-        name: this.formData.name,
-        surname: this.formData.surname,
-        email: this.formData.email,
-        address: this.formData.address,
-        telephone: this.formData.telephone,
-        note: this.formData.note,
-        cart: this.store.dishes,
-        total: this.store.totalPrice,
-      };
-      axios
-        .post("http://127.0.0.1:8000/api/orders", formDataStatic)
-        .then((response) => console.log(response))
-        .catch((error) => {
-          // Gestisci eventuali errori della richiesta
-          console.error(error);
-        })
-        .finally(() => {
-          this.$router.push("/thank-you");
-          this.store.dishes = [];
-          this.store.totalPrice = 0;
-        });
+      if(this.datiCorretti){
+        const formDataStatic = {
+          name: this.formData.name,
+          surname: this.formData.surname,
+          email: this.formData.email,
+          address: this.formData.address,
+          telephone: this.formData.telephone,
+          note: this.formData.note,
+          cart: this.store.dishes,
+          total: this.store.totalPrice,
+        };
+        axios
+          .post("http://127.0.0.1:8000/api/orders", formDataStatic)
+          .then((response) => console.log(response))
+          .catch((error) => {
+            // Gestisci eventuali errori della richiesta
+            console.error(error);
+          })
+          .finally(() => {
+            this.$router.push("/thank-you");
+            this.store.dishes = [];
+            this.store.totalPrice = 0;
+          });
+      }
+     
     },
 
     toggleCart() {
@@ -126,11 +144,12 @@ export default {
 </script>
 
 <template>
-  <Cart @sendData="sendCart" />
+  <Cart />
   <div class="form-register-ctn d-flex justify-content-center form">
+    <h2 v-if="!datiCorretti">inserici i dati</h2>
     <div class="row justify-content-center form-register">
       <div class="card my-3 reg-card p-0">
-        <div class="card-header">Registrazione</div>
+        <div class="card-header">Inserire i dati per la spedizione</div>
 
         <div class="card-body">
           <Form
@@ -282,17 +301,11 @@ export default {
 
                 <div class="row">
                   <div class="col-md-4"></div>
-                  <button
-                    @click="sendCart()"
-                    type="submit"
-                    class="btn btn-violet me-2 p-3 mt-4 col-md-6"
-                  >
-                    Invia ordine
-                  </button>
                 </div>
               </div>
             </div>
           </Form>
+          <Payment @sendCart="sendCart"/>
         </div>
       </div>
     </div>
