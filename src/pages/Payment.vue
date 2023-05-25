@@ -18,7 +18,8 @@ export default {
     let pagamentoConfermato = false;
     braintree.dropin.create({
       authorization: 'sandbox_g42y39zw_348pk9cgf3bgyw2b',
-      selector: '#dropin-container'
+      selector: '#dropin-container',
+      locale : 'it_IT',
     },
     function (err, instance) {
       button.addEventListener('click', function () {
