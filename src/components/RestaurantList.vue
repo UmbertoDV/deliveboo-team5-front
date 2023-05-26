@@ -33,20 +33,26 @@ export default {
   },
 
   methods: {
-    fetchRestaurants(endpoint = null) {
+    fetchRestaurants(endpoint = null, typeId = null) {
       this.isLoading = true;
       if (!endpoint) endpoint = this.baseEndpoint;
 
+      const params = {
+        categories: this.selectedCategories,
+      };
+
+      if (typeId) {
+        endpoint = `http://127.0.0.1:8000/api/type/${typeId}/restaurants`;
+      }
+
       axios
-        .get(endpoint)
+        .get(endpoint, { params })
         .then((response) => {
           this.restaurants.list = response.data;
-          this.paginateRestaurants(1); // Inizializza la paginazione
-
+          this.paginateRestaurants(1);
           if (response.data.type) this.type = response.data.type;
         })
         .catch((error) => {
-          // TO DO: 404 !!!
           this.errorMess = error.message;
         })
         .finally(() => {
@@ -133,6 +139,8 @@ export default {
     },
   },
   created() {
+    const categories = this.$route.query.categories;
+    this.selectedCategories = categories ? categories.split(",") : [];
     this.fetchRestaurants();
     this.fetchTypes();
   },
@@ -158,7 +166,7 @@ export default {
           v-for="type in types"
           class="types"
           :to="{ name: 'type_restaurants', params: { type_id: type.id } }"
-          @click="fetchRestaurants()"
+          @click="fetchRestaurants(null, type.id)"
         >
           <div class="d-flex flex-column align-items-center">
             <div class="types-icon">
