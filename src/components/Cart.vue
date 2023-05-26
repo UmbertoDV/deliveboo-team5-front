@@ -188,7 +188,8 @@ export default {
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
-    width: 30vw;
+    width: 100vw;
+    // min-width: 500px;
     z-index: 3;
     background-color: rgba(255, 78, 0, 0.9);
     font-size: 1.3rem;
@@ -474,5 +475,21 @@ svg.mouth-shadow {
   animation: SwitchThatMood $cycleDuration infinite, MouthShadowOpacity;
   transform-origin: center top;
   fill: #204642;
+}
+
+@media(min-width: 768px){
+.cart {
+  .cart-popover {
+    width: 50vw;
+}
+}
+}
+
+@media(min-width: 1200px){
+.cart {
+  .cart-popover {
+    width: 30vw;
+}
+}
 }
 </style>

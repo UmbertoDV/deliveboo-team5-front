@@ -63,7 +63,7 @@ export default {
   <AppLoader v-if="isLoading" />
   <div class="position d-flex justify-content-center all-contain">
     <div class="form-contain-dish">
-      <div class="jumbo d-flex">
+      <div class="jumbo d-flex justify-content-center">
         <div class="jmb-child d-flex gap-3">
           <img :src="restaurant.image" alt="" />
           <div class="d-flex flex-column mt-4 gap-2 rest-text">
@@ -188,7 +188,6 @@ export default {
   min-width: 400px;
   background-color: white;
   top: 40%;
-  left: 30%;
   border-radius: 1rem;
   box-shadow: 0px 0.7px 3.6px rgba(0, 0, 0, 0.042),
     0px 1.9px 10px rgba(0, 0, 0, 0.06), 0px 4.5px 24.1px rgba(0, 0, 0, 0.078),

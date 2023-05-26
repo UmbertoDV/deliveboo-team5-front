@@ -57,8 +57,6 @@
           <li>Diventa Partner</li>
           <li>FAQ</li>
           <li>Tipi di cucina</li>
-          <li>Politica dei Cookies</li>
-          <li>Sostenbilità</li>
         </ul>
         </div>
          <div>
@@ -126,7 +124,7 @@ footer {
 .link-footer {
   color: white;
   position: absolute;
-  top: 60%;
+  top: 50%;
   width: 100%;
 
   ul {
@@ -134,6 +132,10 @@ footer {
     line-height: 2rem;
     list-style: none;
    padding-left: 0!important;
+
+   li{
+    cursor: pointer;
+   }
   }
 }
 </style>
