@@ -158,7 +158,7 @@ export default {
           v-for="type in types"
           class="types"
           :to="{ name: 'type_restaurants', params: { type_id: type.id } }"
-          @click.once="fetchRestaurants()"
+          @click="fetchRestaurants()"
         >
           <div class="d-flex flex-column align-items-center">
             <div class="types-icon">
