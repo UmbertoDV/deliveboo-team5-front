@@ -13,14 +13,14 @@ export default {
 
   <div class="position d-flex justify-content-center all-contain">
     <div class="form-contain-dish">
-      <div class="jumbo d-flex">
+      <div class="jumbo d-flex justify-content-center">
         <div
           class="jmb-child d-flex flex-column gap-3 justify-content-center align-items-center"
         >
-          <h2 class="mt-5">
-            Grazie mille! Il tuo ordine è avvenuto con successo.
+          <h2 class="mt-5 px-2">
+            Grazie mille! <br> Il tuo ordine è avvenuto con successo.
           </h2>
-          <h4>Tra pochissimo saremo da te!</h4>
+          <h4 class="text-center">Tra pochissimo saremo da te!</h4>
           <div class="logo_deliveboo me-3">
             <svg
               id="Deliveboo"
@@ -168,7 +168,6 @@ export default {
   min-width: 400px;
   background-color: white;
   top: 40%;
-  left: 30%;
   border-radius: 1rem;
   box-shadow: 0px 0.7px 3.6px rgba(0, 0, 0, 0.042),
     0px 1.9px 10px rgba(0, 0, 0, 0.06), 0px 4.5px 24.1px rgba(0, 0, 0, 0.078),

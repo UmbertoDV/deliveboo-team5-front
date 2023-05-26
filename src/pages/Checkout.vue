@@ -153,7 +153,7 @@ export default {
 
 <template>
   <Cart />
-  <div class="container d-flex flex-column align-items-center mt-5 title">
+  <div class="form-user container d-flex flex-column align-items-center mt-5 title">
     <h4 v-if="!(this.datiCorrettiName && this.datiCorrettiSurname && this.datiCorrettiEmail && this.datiCorrettiTelephone &&this.datiCorrettiAddress)" class="">Compila tutti i campi!</h4>
     <h4 v-else class="text-success">Procedi al pagamento!</h4>
   <div class="form-register-ctn d-flex justify-content-center form">
@@ -169,15 +169,14 @@ export default {
             enctype="multipart/form-data"
             id="user-info-form"
           >
-            <div class="d-flex">
-              <div class="col-6 right-register">
-                <div class="mb-4 row">
+            <div class="row">
+                <div class="col-12 col-md-6 mb-4 row">
                   <label
                     for="name"
-                    class="col-md-4 col-form-label text-md-right"
+                    class="col-form-label text-md-right"
                     >Nome</label
                   >
-                  <div class="col-md-6">
+                  <div class="col">
                     <Field
                       v-model="formData.name"
                       id="name"
@@ -194,14 +193,14 @@ export default {
                   </div>
                 </div>
 
-                <div class="mb-4 row">
+                <div class="col-12 col-md-6 mb-4 row ">
                   <label
                     for="surname"
-                    class="col-md-4 col-form-label text-md-right"
+                    class="col-form-label text-md-right"
                     >Cognome</label
                   >
 
-                  <div class="col-md-6">
+                  <div class="col">
                     <Field
                       v-model="formData.surname"
                       id="surname"
@@ -217,14 +216,15 @@ export default {
                     />
                   </div>
                 </div>
-                <div class="mb-4 row">
+
+                <div class="col-12 col-md-6 mb-4 row">
                   <label
                     for="email"
-                    class="col-md-4 col-form-label text-md-right"
+                    class="col-form-label text-md-right"
                     >Email</label
                   >
 
-                  <div class="col-md-6">
+                  <div class="col">
                     <Field
                       v-model="formData.email"
                       id="email"
@@ -240,17 +240,15 @@ export default {
                     />
                   </div>
                 </div>
-              </div>
-
-              <div lass="col-6 left-register d-flex flex-column">
-                <div class="mb-4 row">
+             
+                <div class="col-12 col-md-6 mb-4 row">
                   <label
                     for="address"
-                    class="col-4 col-form-label text-md-right"
+                    class="col-form-label text-md-right"
                     >Indirizzo</label
                   >
 
-                  <div class="col-md-6">
+                  <div class="col">
                     <Field
                       v-model="formData.address"
                       id="address"
@@ -267,14 +265,14 @@ export default {
                   </div>
                 </div>
 
-                <div class="mb-4 row">
+                <div class="col-12 col-md-6 mb-4 row">
                   <label
                     for="telephone"
-                    class="col-4 col-form-label text-md-right"
+                    class="col-form-label text-md-right"
                     >Telefono</label
                   >
 
-                  <div class="col-md-6">
+                  <div class="col">
                     <Field
                       v-model="formData.telephone"
                       id="telephone"
@@ -290,14 +288,14 @@ export default {
                   </div>
                 </div>
 
-                <div class="mb-4 row">
+                <div class="col-12 col-md-6 mb-4 row">
                   <label
                     for="description"
-                    class="col-4 col-form-label text-md-right"
+                    class="col-form-label text-md-right"
                     >Note</label
                   >
 
-                  <div class="col-md-6">
+                  <div class="col">
                     <Field v-slot="{ field }" name="description">
                       <textarea
                         v-model="formData.note"
@@ -312,7 +310,7 @@ export default {
                 <div class="row">
                   <div class="col-md-4"></div>
                 </div>
-              </div>
+              
             </div>
           </Form>
           <Payment @sendCart="sendCart"/>
@@ -327,6 +325,9 @@ export default {
 <style land="scss" scoped>
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
 
+.form-user{
+  max-width: 800px;
+}
 .title h4{
   margin-top:3rem;
 }
