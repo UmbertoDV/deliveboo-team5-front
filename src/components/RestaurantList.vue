@@ -162,25 +162,20 @@ export default {
       </button>
 
       <div class="scroll-images pe-5 d-flex">
-        <router-link
+        <div
           v-for="type in types"
           class="types"
-          :to="{ name: 'type_restaurants', params: { type_id: type.id } }"
           @click="fetchRestaurants(null, type.id)"
         >
           <div class="d-flex flex-column align-items-center">
             <div class="types-icon">
-              <img
-                :src="type.image"
-                alt=""
-                class="child-image"
-              />
+              <img :src="type.image" alt="" class="child-image" />
             </div>
             <div class="mt-3 text">
               <span>{{ type.name }}</span>
             </div>
           </div>
-        </router-link>
+        </div>
       </div>
 
       <button
@@ -213,15 +208,9 @@ export default {
   <!-- Aggiungi il componente di paginazione -->
 
   <div class="demo">
-    <nav
-      class="pagination-outer"
-      aria-label="Page navigation"
-    >
+    <nav class="pagination-outer" aria-label="Page navigation">
       <ul class="pagination">
-        <li
-          class="page-item"
-          :class="{ disabled: currentPage === 1 }"
-        >
+        <li class="page-item" :class="{ disabled: currentPage === 1 }">
           <a
             href="#"
             class="page-link"
@@ -243,16 +232,8 @@ export default {
             >{{ pageNumber }}</a
           >
         </li>
-        <li
-          class="page-item"
-          :class="{ disabled: currentPage === totalPages }"
-        >
-          <a
-            href="#"
-            class="page-link"
-            aria-label="Next"
-            @click="nextPage"
-          >
+        <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+          <a href="#" class="page-link" aria-label="Next" @click="nextPage">
           </a>
         </li>
       </ul>
