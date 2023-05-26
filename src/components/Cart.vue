@@ -33,6 +33,16 @@ export default {
       // );
     },
   },
+  computed: {
+    calcolaNumeroElementi() {
+      let numeroElementi = 0;
+      for (let i = 0; i < this.store.dishes.length; i++) {
+        const dish = this.store.dishes[i];
+        numeroElementi += dish.quantity;
+      }
+      return numeroElementi;
+    },
+  },
 
   emits: ["sendData"],
 };
@@ -40,28 +50,24 @@ export default {
 <template>
   <div class="cart">
     <div class="position-relative">
-      <div
-        class="position-absolute number-items"
-        v-for="dish in this.store.dishes"
-      >
-        {{ dish.quantity * this.store.dishes.length }}
+      <div class="position-absolute number-items">
+        {{ calcolaNumeroElementi }}
       </div>
-
-      <button class="btn" @click="toggleCart()">
-        <svg
-          class="cart-nav"
-          fill="#000000"
-          width="800px"
-          height="800px"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M8,3V7H21L18,17H6V4H4A1,1,0,0,1,4,2H7A1,1,0,0,1,8,3ZM6,20.5A1.5,1.5,0,1,0,7.5,19,1.5,1.5,0,0,0,6,20.5Zm9,0A1.5,1.5,0,1,0,16.5,19,1.5,1.5,0,0,0,15,20.5Z"
-          />
-        </svg>
-      </button>
     </div>
+    <button class="btn" @click="toggleCart()">
+      <svg
+        class="cart-nav"
+        fill="#000000"
+        width="800px"
+        height="800px"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M8,3V7H21L18,17H6V4H4A1,1,0,0,1,4,2H7A1,1,0,0,1,8,3ZM6,20.5A1.5,1.5,0,1,0,7.5,19,1.5,1.5,0,0,0,6,20.5Zm9,0A1.5,1.5,0,1,0,16.5,19,1.5,1.5,0,0,0,15,20.5Z"
+        />
+      </svg>
+    </button>
     <div class="cart-popover" :class="{ 'd-none': !isVisible }">
       <div class="d-flex justify-content-between align-items-center">
         <h3>Carrello</h3>
@@ -142,7 +148,7 @@ export default {
   height: 40px;
   top: 0px;
   left: 68px;
-  z-index: 3;
+  z-index: 2;
   border-radius: 50%;
   border: 2px solid white;
   display: flex;
