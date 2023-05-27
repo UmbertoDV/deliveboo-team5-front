@@ -19,8 +19,10 @@ export default {
 
       types: [],
       selectedCategories: [],
+      selectedTypes: [],
 
       type: null,
+      filteredRestaurants: [],
     };
   },
 
@@ -33,12 +35,33 @@ export default {
   },
 
   methods: {
+    filterRestaurants() {
+      if (this.selectedTypes.length === 0) {
+        this.filteredRestaurants = this.restaurants.list; // Se nessuna tipologia è selezionata, mostra tutti i ristoranti
+      } else {
+        this.filteredRestaurants = this.restaurants.list.filter((restaurant) =>
+          restaurant.types.some((type) => this.selectedTypes.includes(type.id))
+        ); // Filtra i ristoranti in base alle tipologie selezionate
+      }
+    },
+    toggleCategorySelection(typeId) {
+      if (this.selectedTypes.includes(typeId)) {
+        this.selectedTypes = this.selectedTypes.filter((id) => id !== typeId);
+      } else {
+        this.selectedTypes.push(typeId);
+      }
+      const endpoint =
+        this.baseEndpoint + "?types=" + this.selectedTypes.join(",");
+      this.fetchRestaurants(endpoint);
+      this.filterRestaurants();
+    },
+
     fetchRestaurants(endpoint = null, typeId = null) {
       this.isLoading = true;
       if (!endpoint) endpoint = this.baseEndpoint;
 
       const params = {
-        categories: this.selectedCategories,
+        types: this.selectedTypes,
       };
 
       if (typeId) {
@@ -49,6 +72,7 @@ export default {
         .get(endpoint, { params })
         .then((response) => {
           this.restaurants.list = response.data;
+          this.filteredRestaurants = this.restaurants.list;
           this.paginateRestaurants(1);
           if (response.data.type) this.type = response.data.type;
         })
@@ -89,6 +113,12 @@ export default {
 
     paginateRestaurants(page) {
       this.currentPage = page;
+      const startIndex = (this.currentPage - 1) * this.perPage;
+      const endIndex = startIndex + this.perPage;
+      this.paginatedRestaurants = this.filteredRestaurants.slice(
+        startIndex,
+        endIndex
+      );
     },
 
     previousPage() {
@@ -111,7 +141,9 @@ export default {
       if (this.typeOfRequest == "all")
         return "http://127.0.0.1:8000/api/restaurants";
       if (this.typeOfRequest == "by_type")
-        return `http://127.0.0.1:8000/api/type/${this.$route.params.type_id}/restaurants`;
+        return `http://127.0.0.1:8000/api/type/${this.selectedTypes.join(
+          ","
+        )}/restaurants`;
       return "http://127.0.0.1:8000/api/restaurants";
     },
 
@@ -167,12 +199,14 @@ export default {
           class="types"
           @click="fetchRestaurants(null, type.id)"
         >
-          <div class="d-flex flex-column align-items-center">
-            <div class="types-icon">
-              <img :src="type.image" alt="" class="child-image" />
-            </div>
-            <div class="mt-3 text">
-              <span>{{ type.name }}</span>
+          <div @click="toggleCategorySelection(type.id)">
+            <div class="d-flex flex-column align-items-center">
+              <div class="types-icon">
+                <img :src="type.image" alt="" class="child-image" />
+              </div>
+              <div class="mt-3 text">
+                <span>{{ type.name }}</span>
+              </div>
             </div>
           </div>
         </div>
