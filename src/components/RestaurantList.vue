@@ -12,6 +12,7 @@ export default {
       restaurants: {
         list: [],
         pages: [],
+        filteredList: [],
       },
 
       perPage: 8, // Numero di ristoranti per pagina
@@ -39,9 +40,23 @@ export default {
       if (this.selectedTypes.length === 0) {
         this.filteredRestaurants = this.restaurants.list; // Se nessuna tipologia è selezionata, mostra tutti i ristoranti
       } else {
-        this.filteredRestaurants = this.restaurants.list.filter((restaurant) =>
-          restaurant.types.some((type) => this.selectedTypes.includes(type.id))
-        ); // Filtra i ristoranti in base alle tipologie selezionate
+        this.filteredRestaurants = this.restaurants.list.filter(
+          (restaurant) => {
+            return restaurant.types.some((type) =>
+              this.selectedTypes.includes(type.id)
+            );
+          }
+        );
+
+        // for (const restaurant of this.restaurants.list) {
+        //   for (const type of restaurant.types) {
+        //     for (const selectedType of this.selectedTypes) {
+        //       if (type.id === selectedType) {
+        //         this.filteredRestaurants.push(restaurant);
+        //       }
+        //     }
+        //   }
+        // }
       }
     },
     toggleCategorySelection(typeId) {
@@ -49,11 +64,17 @@ export default {
         this.selectedTypes = this.selectedTypes.filter((id) => id !== typeId);
       } else {
         this.selectedTypes.push(typeId);
+        this.filterRestaurants();
+        console.log(
+          "toggleCategorySelection 1.FILTEREDRESTAURANT 2.SELECTEDTYPES"
+        );
+        console.log(this.restaurants.list);
+        console.log(this.filteredRestaurants);
+        console.log(this.selectedTypes);
       }
+
       const endpoint =
         this.baseEndpoint + "?types=" + this.selectedTypes.join(",");
-      this.fetchRestaurants(endpoint);
-      this.filterRestaurants();
     },
 
     fetchRestaurants(endpoint = null, typeId = null) {
@@ -72,9 +93,39 @@ export default {
         .get(endpoint, { params })
         .then((response) => {
           this.restaurants.list = response.data;
-          this.filteredRestaurants = this.restaurants.list;
+          this.filteredRestaurants = this.restaurants.list.filter(
+            (restaurant) => {
+              return restaurant.types.every((type) =>
+                this.selectedTypes.includes(type.id)
+              );
+            }
+          );
+          // this.filteredRestaurants = this.restaurants.list;
+          // this.filterRestaurants(type.id);
+          // Aggiungi la funzione forEach qui
+          // this.filteredRestaurants = this.restaurants.list.filter(
+          //   (restaurant) =>
+          //     restaurant.types.some((type) => this.rest_type_id.includes(type))
+          // );
+          this.rest_type_id = []; // Resettiamo l'array prima di aggiungere gli id
+          // this.restaurants.list.forEach((restaurant) => {
+          //   restaurant.types.forEach((type) => {
+          // this.filteredRestaurants = this.restaurants.list.filter(
+          //   (restaurant) => {
+          //     return this.selectedTypes.every((type) =>
+          //       restaurant.types.includes(type)
+          //     );
+          //   }
+          // );
+
+          //   });
+          // });
+          console.log("Fetch RESTAURANT 1.FILTEREDRESTAURANT 2.SELECTEDTYPES");
+          console.log(this.filteredRestaurants);
+          console.log(this.selectedTypes);
           this.paginateRestaurants(1);
           if (response.data.type) this.type = response.data.type;
+          this.filterRestaurants();
         })
         .catch((error) => {
           this.errorMess = error.message;
@@ -155,7 +206,7 @@ export default {
     paginatedRestaurants() {
       const startIndex = (this.currentPage - 1) * this.perPage;
       const endIndex = startIndex + this.perPage;
-      return this.restaurants.list.slice(startIndex, endIndex);
+      return this.filteredRestaurants.slice(startIndex, endIndex);
     },
 
     totalPages() {
@@ -197,7 +248,8 @@ export default {
         <div
           v-for="type in types"
           class="types"
-          @click="fetchRestaurants(null, type.id)"
+          @click="filterRestaurants()"
+          :class="{ active: selectedTypes.includes(type.id) }"
         >
           <div @click="toggleCategorySelection(type.id)">
             <div class="d-flex flex-column align-items-center">
@@ -276,6 +328,9 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.active {
+  background-color: #5d4df5;
+}
 .pagination-outer {
   text-align: center;
 }
