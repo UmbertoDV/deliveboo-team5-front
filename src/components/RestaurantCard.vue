@@ -29,6 +29,10 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.card-title {
+  font-family: "Acme", sans-serif;
+  font-size: 1.5rem;
+}
 .img-container {
   height: 200px;
   padding-top: 1rem;
@@ -53,6 +57,7 @@ export default {
 .card-text-address {
   font-size: 1.2rem;
   height: 30px;
+  color: rgb(79, 79, 79);
 }
 
 //SCSS

@@ -61,7 +61,7 @@ export default {
     <h2 class="alert-heading">Non puoi ordinare da due ristoranti diversi!</h2>
   </div> -->
   <AppLoader v-if="isLoading" />
-  <div class="position d-flex justify-content-center all-contain">
+  <div class="position d-flex flex-column justify-content-center all-contain">
     <div class="form-contain-dish">
       <div class="jumbo d-flex justify-content-center">
         <div class="jmb-child d-flex gap-3">
@@ -145,11 +145,18 @@ export default {
         </div>
       </div>
     </div>
+    <Footer />
   </div>
-  <Footer />
 </template>
 
 <style scoped>
+.show-dishes {
+  height: 1400px;
+}
+.form-contain-dish {
+  height: 100%;
+}
+
 .position-absolute {
   top: 40%;
 }
@@ -242,6 +249,7 @@ export default {
   animation: gradient-animation 6s ease infinite;
   padding: 2rem;
   border-radius: 1rem;
+  /* height: 1400px; */
 }
 
 .show-card-dish {

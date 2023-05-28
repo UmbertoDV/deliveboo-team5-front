@@ -42,7 +42,7 @@
         <div>
           <h4>Su di noi</h4>
           <ul>
-             <li>Informazioni su Deliveboo</li>
+            <li>Informazioni su Deliveboo</li>
             <li>Diventa Partner</li>
             <li>Lavora con noi</li>
             <li>Diventa un rider su Deliveb</li>
@@ -52,21 +52,21 @@
         </div>
         <div>
           <h4>Aiuto</h4>
-        <ul>
-          <li>Contatti</li>
-          <li>Diventa Partner</li>
-          <li>FAQ</li>
-          <li>Tipi di cucina</li>
-        </ul>
+          <ul>
+            <li>Contatti</li>
+            <li>Diventa Partner</li>
+            <li>FAQ</li>
+            <li>Tipi di cucina</li>
+          </ul>
         </div>
-         <div>
-            <h4>Note legali</h4>
+        <div>
+          <h4>Note legali</h4>
           <ul>
             <li>Termini e condizioni</li>
             <li>Informativa sulla privacy</li>
             <li>Cookies</li>
           </ul>
-          </div>
+        </div>
       </div>
     </div>
   </footer>
@@ -87,6 +87,7 @@ svg {
 footer {
   color: var(--light-white-txt);
   min-height: 440px;
+  margin-top: auto;
 }
 .container-footer {
   position: relative;
@@ -131,11 +132,11 @@ footer {
     font-size: 1rem;
     line-height: 2rem;
     list-style: none;
-   padding-left: 0!important;
+    padding-left: 0 !important;
 
-   li{
-    cursor: pointer;
-   }
+    li {
+      cursor: pointer;
+    }
   }
 }
 </style>

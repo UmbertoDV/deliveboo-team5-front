@@ -24,6 +24,7 @@ export default {
 
       type: null,
       filteredRestaurants: [],
+      all: true,
     };
   },
 
@@ -38,8 +39,10 @@ export default {
   methods: {
     filterRestaurants() {
       if (this.selectedTypes.length === 0) {
-        this.filteredRestaurants = this.restaurants.list; // Se nessuna tipologia è selezionata, mostra tutti i ristoranti
+        this.filteredRestaurants = this.restaurants.list;
+        // Se nessuna tipologia è selezionata, mostra tutti i ristoranti
       } else {
+        this.all = false;
         this.filteredRestaurants = this.restaurants.list.filter(
           (restaurant) => {
             return restaurant.types.some((type) =>
@@ -210,7 +213,9 @@ export default {
     },
 
     totalPages() {
-      return Math.ceil(this.totalRestaurants / this.perPage);
+      if (this.all) return Math.ceil(this.totalRestaurants / this.perPage);
+      if (!this.all)
+        return Math.ceil(this.filteredRestaurants.length / this.perPage);
     },
     currentPage: {
       get() {
@@ -247,7 +252,7 @@ export default {
       <div class="scroll-images pe-5 d-flex">
         <div
           v-for="type in types"
-          class="types"
+          class="types d-flex align-items-center"
           @click="filterRestaurants()"
           :class="{ active: selectedTypes.includes(type.id) }"
         >
@@ -275,8 +280,9 @@ export default {
       </button>
     </div>
   </div>
-  <div class="container d-flex align-items-center flex-column mb-5">
-    <h2 v-if="typeOfRequest == 'all'">Tutti i ristoranti</h2>
+  <div class="container d-flex align-items-center flex-column mb-5 rest">
+    <h2 v-if="all">Tutti i ristoranti</h2>
+    <h2 v-else>I ristoranti delle tipologie selezionate</h2>
 
     <div
       class="row row-cols- gap-3 justify-content-center mt-5 gradient-2"
@@ -328,9 +334,19 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.active {
-  background-color: #5d4df5;
+.rest {
+  margin-top: 4rem;
 }
+.active {
+  background-color: rgb(107, 151, 247, 0.4);
+  border-radius: 2rem;
+}
+.types:hover img {
+  transition: 1s ease;
+  transform: scale(1.2);
+}
+
+//
 .pagination-outer {
   text-align: center;
 }
@@ -464,6 +480,10 @@ h2 {
 }
 .text {
   font-size: 1.2rem;
+  span {
+    font-family: "Acme", sans-serif;
+    font-size: 1.5rem;
+  }
 }
 
 .all-types {
@@ -477,7 +497,7 @@ h2 {
 }
 
 .types-icon {
-  width: 100%;
+  width: 100px;
 
   img {
     width: 89px;
@@ -499,8 +519,12 @@ h2 {
   overflow: hidden;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  gap: 2rem;
+  gap: 1.5rem;
   margin-left: 1.2rem;
+
+  > div {
+    padding: 0.5rem 1rem;
+  }
 }
 
 .child {
