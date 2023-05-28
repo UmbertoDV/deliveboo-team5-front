@@ -40,6 +40,7 @@ export default {
     filterRestaurants() {
       if (this.selectedTypes.length === 0) {
         this.filteredRestaurants = this.restaurants.list;
+        this.all = true;
         // Se nessuna tipologia è selezionata, mostra tutti i ristoranti
       } else {
         this.all = false;

@@ -74,44 +74,54 @@ export default {
         <button class="btn btn-violet" @click="isVisible = 0">x</button>
       </div>
 
-      <div class="d-flex flex-column gap-3">
+      <div class="d-flex flex-column gap-3 mt-3">
         <div
           v-for="dish in this.store.dishes"
           class="d-flex gap-2 align-items-center items p-2"
         >
-          <div class="flex-grow-1">
+          <div class="flex-grow-1 name">
             {{ dish.name }}
           </div>
-          <div class="d-flex gap-2 align-items-center">
-            <button class="btn minus" @click="store.minusOne(dish)">-</button>
-            <span class="quantity-n">
+          <div class="d-flex gap-2 align-items-center justify-content-center">
+            <button class="btn minus bnts" @click="store.minusOne(dish)">
+              -
+            </button>
+            <div class="quantity-n btns">
               {{ dish.quantity }}
-            </span>
-            <button class="btn plus" @click="store.moreOne(dish)">+</button>
-            <span class="total-n">
+            </div>
+            <button class="btn plus btns" @click="store.moreOne(dish)">
+              +
+            </button>
+            <span class="total-n ms-3">
               {{ (dish.price * dish.quantity).toFixed(2) }}€
             </span>
           </div>
         </div>
       </div>
       <div
-        class="d-flex align-items-center justify-content-end"
+        class="d-flex align-items-center justify-content-between"
         v-if="this.store.dishes.length"
       >
-        <button @click="store.deleteCart" class="btn btn-violet me-2 p-3">
-          Annulla Ordine
-        </button>
-        <router-link :to="{ name: 'checkout' }" class="btn btn-violet me-2 p-3">
-          Checkout
-        </router-link>
-        <span class="total-n"
-          >{{ parseFloat(store.totalPrice).toFixed(2) }}€</span
+        <div class="d-flex">
+          <button @click="store.deleteCart" class="btn btn-violet me-2 annulla">
+            Annulla Ordine
+          </button>
+          <router-link
+            :to="{ name: 'checkout' }"
+            class="btn btn-violet me-5 router p-3"
+          >
+            Checkout
+          </router-link>
+        </div>
+
+        <span class="total-n me-2"
+          >Total: {{ parseFloat(store.totalPrice).toFixed(2) }}€</span
         >
       </div>
-      <div v-else>
+      <div v-else class="mt-2">
         <h2>Il carrello è vuoto!</h2>
         <!-- ANIMAZIONE CARRELLO -->
-        <div class="container-2">
+        <div class="container-2 mt-3">
           <div class="sun"></div>
 
           <div class="bumps">
@@ -143,6 +153,24 @@ export default {
 </template>
 
 <style lang="scss">
+.annulla {
+  padding: 1.8rem;
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+}
+.router {
+  font-size: 1.1rem;
+}
+.btns {
+  width: 40px;
+  color: white;
+  font-size: 1.5rem;
+}
+.name {
+  font-size: 1.5rem;
+  padding-left: 1rem;
+}
 .number-items {
   width: 40px;
   height: 40px;
@@ -169,6 +197,7 @@ export default {
 .minus {
   font-size: 1.5rem;
   font-weight: bold;
+  color: white;
 }
 
 .plus {
@@ -220,9 +249,7 @@ button {
   background: linear-gradient(0deg, #474bff 0%, #bc48ff 100%);
   color: white;
   border-radius: 0.8rem;
-  padding: 0.8rem 1rem;
   border: none;
-  padding: 0.5rem 0.9rem;
 
   &:hover {
     color: white;
@@ -477,19 +504,19 @@ svg.mouth-shadow {
   fill: #204642;
 }
 
-@media(min-width: 768px){
-.cart {
-  .cart-popover {
-    width: 50vw;
-}
-}
+@media (min-width: 768px) {
+  .cart {
+    .cart-popover {
+      width: 50vw;
+    }
+  }
 }
 
-@media(min-width: 1200px){
-.cart {
-  .cart-popover {
-    width: 30vw;
-}
-}
+@media (min-width: 1200px) {
+  .cart {
+    .cart-popover {
+      width: 30vw;
+    }
+  }
 }
 </style>

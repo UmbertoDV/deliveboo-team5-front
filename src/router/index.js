@@ -5,6 +5,7 @@ import RestaurantListPage from "../pages/RestaurantListPage.vue";
 import TypeRestaurantsPage from "../pages/TypeRestaurantsPage.vue";
 import Checkout from "../pages/Checkout.vue";
 import ThankYou from "../pages/ThankYou.vue";
+import AboutUs from "../pages/AboutUs.vue";
 import Payment from "../pages/Payment.vue";
 import Cart from "../components/Cart.vue";
 
@@ -52,6 +53,11 @@ const router = createRouter({
       path: "/payment",
       name: "payment",
       component: Payment,
+    },
+    {
+      path: "/about",
+      name: "about",
+      component: AboutUs,
     },
   ],
 });

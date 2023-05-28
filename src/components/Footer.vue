@@ -48,6 +48,9 @@
             <li>Diventa un rider su Deliveb</li>
             <li>Politica dei Cookies</li>
             <li>Sostenbilità</li>
+            <li>
+              <a class="us" href="http://localhost:5174/about">Il Team</a>
+            </li>
           </ul>
         </div>
         <div>
@@ -73,6 +76,9 @@
 </template>
 
 <style lang="scss" scoped>
+.us {
+  font-size: 0.9rem;
+}
 a {
   color: white;
   font-size: 1.3rem;
