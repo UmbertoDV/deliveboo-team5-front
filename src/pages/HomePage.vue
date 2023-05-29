@@ -185,6 +185,6 @@ export default {
   width: 700px;
   fill: rgba(255, 78, 0, 1);
   position: absolute;
-  top: 391px;
+  top: 395px;
 }
 </style>
