@@ -66,7 +66,7 @@ export default {
 <style lang="scss" scoped>
 .linee {
   fill: none;
-  stroke: #fff;
+  stroke: #f5bb00;
   stroke-linecap: round;
   stroke-miterlimit: 10;
   stroke-width: 8px;
@@ -77,7 +77,7 @@ export default {
 }
 
 .zaino {
-  fill: #fff;
+  fill: #f5bb00;
 }
 
 .body-loader {

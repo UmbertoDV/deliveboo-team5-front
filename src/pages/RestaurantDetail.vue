@@ -50,18 +50,8 @@ export default {
 };
 </script>
 <template>
-  <!-- ALERT -->
-  <!-- <div class="position-relative">
-    <div
-      :class="alertClasses"
-      role="alert"
-      v-if="showAlert"
-      class="d-flex position-absolute card"
-    ></div>
-    <h2 class="alert-heading">Non puoi ordinare da due ristoranti diversi!</h2>
-  </div> -->
   <AppLoader v-if="isLoading" />
-  <div class="position d-flex justify-content-center all-contain">
+  <div class="position d-flex flex-column justify-content-center all-contain">
     <div class="form-contain-dish">
       <div class="jumbo d-flex justify-content-center">
         <div class="jmb-child d-flex gap-3">
@@ -70,7 +60,12 @@ export default {
             <div
               class="d-flex flex-row align-items-center icons-type gap-3 mb-2"
             >
-              <img v-for="type in restaurant.types" :src="type.image" alt="" />
+              <img
+                v-for="type in restaurant.types"
+                :src="type.image"
+                alt=""
+                class="svg-types"
+              />
             </div>
             <div>{{ restaurant.name_restaurant }}</div>
             <div>Indirizzo: {{ restaurant.address }}</div>
@@ -85,7 +80,6 @@ export default {
           <div class="row gap-3 px-2 d-flex justify-content-center mt-5 mb-5">
             <div
               class="card gradient-2 pt-3"
-              style="width: 19rem"
               v-for="(dish, index) in restaurant.dishes"
             >
               <div class="card-white">
@@ -145,11 +139,25 @@ export default {
         </div>
       </div>
     </div>
+    <Footer />
   </div>
-  <Footer />
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+.svg-types {
+  height: 0;
+}
+.card-title {
+  font-family: "Varela Round", sans-serif;
+  font-size: 1.5rem;
+}
+.show-dishes {
+  min-height: 1400px;
+}
+.form-contain-dish {
+  height: 100%;
+}
+
 .position-absolute {
   top: 40%;
 }
@@ -157,7 +165,7 @@ export default {
   height: 40px;
 }
 .tit {
-  height: 70px;
+  height: 60px;
   display: inline-block;
 }
 .jumbo {
@@ -242,6 +250,7 @@ export default {
   animation: gradient-animation 6s ease infinite;
   padding: 2rem;
   border-radius: 1rem;
+  /* height: 1400px; */
 }
 
 .show-card-dish {
@@ -326,6 +335,48 @@ i {
   color: white;
   font-size: 1.5rem;
   border-radius: 1rem;
+  width: 19rem;
+}
+
+@media screen and (max-width: 762px) {
+  .gradient-2 {
+    width: 26rem;
+
+    background: linear-gradient(334deg, rgba(255, 36, 186), #877af9, #5d4df5);
+    animation: gradient-animation 6s ease infinite;
+  }
+  .row {
+    background: linear-gradient(
+      394deg,
+      rgba(95, 146, 255, 0.25),
+      #5d4df5,
+      rgba(255, 255, 255, 0.6)
+    );
+  }
+  .jmb-child {
+    height: 400px;
+    margin-bottom: 9rem;
+  }
+  .card-img {
+    width: 100%;
+  }
+  .jumbo {
+    margin-bottom: 16rem;
+  }
+  .icons-type {
+    img {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .jmb-child {
+    height: 400px;
+  }
+  .jumbo {
+    margin-bottom: 16rem;
+  }
 }
 
 .rest-text {
@@ -336,6 +387,7 @@ i {
 
 .icons-type {
   width: 80px;
+  flex-wrap: wr;
 }
 
 @keyframes gradient-animation {

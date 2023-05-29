@@ -12,6 +12,7 @@ export default {
       restaurants: {
         list: [],
         pages: [],
+        filteredList: [],
       },
 
       perPage: 8, // Numero di ristoranti per pagina
@@ -19,8 +20,11 @@ export default {
 
       types: [],
       selectedCategories: [],
+      selectedTypes: [],
 
       type: null,
+      filteredRestaurants: [],
+      all: true,
     };
   },
 
@@ -33,12 +37,56 @@ export default {
   },
 
   methods: {
+    filterRestaurants() {
+      if (this.selectedTypes.length === 0) {
+        this.filteredRestaurants = this.restaurants.list;
+        this.all = true;
+        // Se nessuna tipologia è selezionata, mostra tutti i ristoranti
+      } else {
+        this.all = false;
+        this.filteredRestaurants = this.restaurants.list.filter(
+          (restaurant) => {
+            return restaurant.types.some((type) =>
+              this.selectedTypes.includes(type.id)
+            );
+          }
+        );
+
+        // for (const restaurant of this.restaurants.list) {
+        //   for (const type of restaurant.types) {
+        //     for (const selectedType of this.selectedTypes) {
+        //       if (type.id === selectedType) {
+        //         this.filteredRestaurants.push(restaurant);
+        //       }
+        //     }
+        //   }
+        // }
+      }
+    },
+    toggleCategorySelection(typeId) {
+      if (this.selectedTypes.includes(typeId)) {
+        this.selectedTypes = this.selectedTypes.filter((id) => id !== typeId);
+      } else {
+        this.selectedTypes.push(typeId);
+        this.filterRestaurants();
+        console.log(
+          "toggleCategorySelection 1.FILTEREDRESTAURANT 2.SELECTEDTYPES"
+        );
+        console.log(this.restaurants.list);
+        console.log(this.filteredRestaurants);
+        console.log(this.selectedTypes);
+      }
+
+      const endpoint =
+        this.baseEndpoint + "?types=" + this.selectedTypes.join(",");
+    },
+
     fetchRestaurants(endpoint = null, typeId = null) {
       this.isLoading = true;
       if (!endpoint) endpoint = this.baseEndpoint;
 
       const params = {
-        categories: this.selectedCategories,
+        types: this.selectedTypes,
       };
 
       if (typeId) {
@@ -49,8 +97,39 @@ export default {
         .get(endpoint, { params })
         .then((response) => {
           this.restaurants.list = response.data;
+          this.filteredRestaurants = this.restaurants.list.filter(
+            (restaurant) => {
+              return restaurant.types.every((type) =>
+                this.selectedTypes.includes(type.id)
+              );
+            }
+          );
+          // this.filteredRestaurants = this.restaurants.list;
+          // this.filterRestaurants(type.id);
+          // Aggiungi la funzione forEach qui
+          // this.filteredRestaurants = this.restaurants.list.filter(
+          //   (restaurant) =>
+          //     restaurant.types.some((type) => this.rest_type_id.includes(type))
+          // );
+          this.rest_type_id = []; // Resettiamo l'array prima di aggiungere gli id
+          // this.restaurants.list.forEach((restaurant) => {
+          //   restaurant.types.forEach((type) => {
+          // this.filteredRestaurants = this.restaurants.list.filter(
+          //   (restaurant) => {
+          //     return this.selectedTypes.every((type) =>
+          //       restaurant.types.includes(type)
+          //     );
+          //   }
+          // );
+
+          //   });
+          // });
+          console.log("Fetch RESTAURANT 1.FILTEREDRESTAURANT 2.SELECTEDTYPES");
+          console.log(this.filteredRestaurants);
+          console.log(this.selectedTypes);
           this.paginateRestaurants(1);
           if (response.data.type) this.type = response.data.type;
+          this.filterRestaurants();
         })
         .catch((error) => {
           this.errorMess = error.message;
@@ -89,6 +168,12 @@ export default {
 
     paginateRestaurants(page) {
       this.currentPage = page;
+      const startIndex = (this.currentPage - 1) * this.perPage;
+      const endIndex = startIndex + this.perPage;
+      this.paginatedRestaurants = this.filteredRestaurants.slice(
+        startIndex,
+        endIndex
+      );
     },
 
     previousPage() {
@@ -111,7 +196,9 @@ export default {
       if (this.typeOfRequest == "all")
         return "http://127.0.0.1:8000/api/restaurants";
       if (this.typeOfRequest == "by_type")
-        return `http://127.0.0.1:8000/api/type/${this.$route.params.type_id}/restaurants`;
+        return `http://127.0.0.1:8000/api/type/${this.selectedTypes.join(
+          ","
+        )}/restaurants`;
       return "http://127.0.0.1:8000/api/restaurants";
     },
 
@@ -123,11 +210,13 @@ export default {
     paginatedRestaurants() {
       const startIndex = (this.currentPage - 1) * this.perPage;
       const endIndex = startIndex + this.perPage;
-      return this.restaurants.list.slice(startIndex, endIndex);
+      return this.filteredRestaurants.slice(startIndex, endIndex);
     },
 
     totalPages() {
-      return Math.ceil(this.totalRestaurants / this.perPage);
+      if (this.all) return Math.ceil(this.totalRestaurants / this.perPage);
+      if (!this.all)
+        return Math.ceil(this.filteredRestaurants.length / this.perPage);
     },
     currentPage: {
       get() {
@@ -162,25 +251,23 @@ export default {
       </button>
 
       <div class="scroll-images pe-5 d-flex">
-        <router-link
+        <div
           v-for="type in types"
-          class="types"
-          :to="{ name: 'type_restaurants', params: { type_id: type.id } }"
-          @click="fetchRestaurants(null, type.id)"
+          class="types d-flex align-items-center"
+          @click="filterRestaurants()"
+          :class="{ active: selectedTypes.includes(type.id) }"
         >
-          <div class="d-flex flex-column align-items-center">
-            <div class="types-icon">
-              <img
-                :src="type.image"
-                alt=""
-                class="child-image"
-              />
-            </div>
-            <div class="mt-3 text">
-              <span>{{ type.name }}</span>
+          <div @click="toggleCategorySelection(type.id)">
+            <div class="d-flex flex-column align-items-center">
+              <div class="types-icon">
+                <img :src="type.image" alt="" class="child-image" />
+              </div>
+              <div class="mt-3 text">
+                <span>{{ type.name }}</span>
+              </div>
             </div>
           </div>
-        </router-link>
+        </div>
       </div>
 
       <button
@@ -194,8 +281,9 @@ export default {
       </button>
     </div>
   </div>
-  <div class="container d-flex align-items-center flex-column mb-5">
-    <h2 v-if="typeOfRequest == 'all'">Tutti i ristoranti</h2>
+  <div class="container d-flex align-items-center flex-column mb-5 rest">
+    <h2 v-if="all">Tutti i ristoranti</h2>
+    <h2 v-else>I ristoranti delle tipologie selezionate</h2>
 
     <div
       class="row row-cols- gap-3 justify-content-center mt-5 gradient-2"
@@ -213,15 +301,9 @@ export default {
   <!-- Aggiungi il componente di paginazione -->
 
   <div class="demo">
-    <nav
-      class="pagination-outer"
-      aria-label="Page navigation"
-    >
+    <nav class="pagination-outer" aria-label="Page navigation">
       <ul class="pagination">
-        <li
-          class="page-item"
-          :class="{ disabled: currentPage === 1 }"
-        >
+        <li class="page-item" :class="{ disabled: currentPage === 1 }">
           <a
             href="#"
             class="page-link"
@@ -243,16 +325,8 @@ export default {
             >{{ pageNumber }}</a
           >
         </li>
-        <li
-          class="page-item"
-          :class="{ disabled: currentPage === totalPages }"
-        >
-          <a
-            href="#"
-            class="page-link"
-            aria-label="Next"
-            @click="nextPage"
-          >
+        <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+          <a href="#" class="page-link" aria-label="Next" @click="nextPage">
           </a>
         </li>
       </ul>
@@ -261,6 +335,19 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.rest {
+  margin-top: 4rem;
+}
+.active {
+  background-color: rgb(107, 151, 247, 0.4);
+  border-radius: 2rem;
+}
+.types:hover img {
+  transition: 1s ease;
+  transform: scale(1.2);
+}
+
+//
 .pagination-outer {
   text-align: center;
 }
@@ -394,6 +481,10 @@ h2 {
 }
 .text {
   font-size: 1.2rem;
+  span {
+    font-family: "Acme", sans-serif;
+    font-size: 1.5rem;
+  }
 }
 
 .all-types {
@@ -407,7 +498,7 @@ h2 {
 }
 
 .types-icon {
-  width: 100%;
+  width: 100px;
 
   img {
     width: 89px;
@@ -429,8 +520,12 @@ h2 {
   overflow: hidden;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  gap: 2rem;
+  gap: 1.5rem;
   margin-left: 1.2rem;
+
+  > div {
+    padding: 0.5rem 1rem;
+  }
 }
 
 .child {
