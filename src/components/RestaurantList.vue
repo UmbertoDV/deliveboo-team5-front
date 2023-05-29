@@ -500,6 +500,10 @@ h2 {
 .types-icon {
   width: 100px;
 
+  &:hover {
+    cursor: pointer;
+  }
+
   img {
     width: 89px;
   }
