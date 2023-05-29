@@ -3,10 +3,12 @@ import axios from "axios";
 import AppHeader from "./AppHeader.vue";
 import RestaurantCard from "./RestaurantCard.vue";
 import Pagination from "vue-pagination";
+import { useCartStore } from "../store/cart.js";
 
 export default {
   data() {
     return {
+      store: useCartStore(),
       isLoading: false,
       errorMess: false,
       restaurants: {
@@ -25,6 +27,7 @@ export default {
       type: null,
       filteredRestaurants: [],
       all: true,
+      showAlert: false,
     };
   },
 
@@ -226,17 +229,22 @@ export default {
         this.$emit("input", page);
       },
     },
+
+
   },
   created() {
     const categories = this.$route.query.categories;
     this.selectedCategories = categories ? categories.split(",") : [];
     this.fetchRestaurants();
     this.fetchTypes();
+   
   },
 };
 </script>
 
 <template>
+    <div>
+    </div>
   <AppLoader v-if="isLoading" />
   <div class="container">
     <div class="all-types mb-3 mt-5 cover">

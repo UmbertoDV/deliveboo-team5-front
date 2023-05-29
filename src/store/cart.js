@@ -18,6 +18,7 @@ export const useCartStore = defineStore("cart", {
     };
   },
   actions: {
+
     addDish(dish) {
       dish.price = parseFloat(dish.price);
       let isAlreadyInCart = 0;
@@ -43,8 +44,8 @@ export const useCartStore = defineStore("cart", {
         );
         // Se sono presenti piatti di ristoranti diversi, mostra un alert
         if (piattiRistoranteDiverso) {
-          this.alertClasses = "alert alert-warning";
-          window.alert("Non puoi ordinare da due diversi ristoranti!");
+          // this.alertClasses = "alert alert-warning";
+          // window.alert("Non puoi ordinare da due diversi ristoranti!");
               this.showAlert = true;
             return;
         }
@@ -102,5 +103,6 @@ export const useCartStore = defineStore("cart", {
   numeroPiattiCart() {
     return this.store.dishes.length;
   },
+
   getters: {},
 });

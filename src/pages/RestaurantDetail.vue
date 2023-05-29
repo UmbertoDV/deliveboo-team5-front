@@ -5,6 +5,7 @@ export default {
   name: "Homepage",
   data() {
     return {
+      alert: true,
       store: useCartStore(), //initialize the store
       restaurant: [],
       link: "",
@@ -16,9 +17,23 @@ export default {
   },
   created() {
     this.fetchRest();
+        const cartStore = useCartStore();
+
+    // Assegna il valore iniziale dello store alla variabile showAlert nel componente Vue
+    this.showAlert = cartStore.showAlert;
+
+    // Osserva le modifiche della variabile showAlert nello store
+    this.$watch(
+      () => cartStore.showAlert,
+      (newVal) => {
+        this.showAlert = newVal; // Aggiorna la variabile showAlert nel componente Vue quando cambia nello store
+      }
+    );
+ 
   },
 
   computed: {
+    
     myIndex() {
       for (let i = 0; i > this.restaurant.dishes.length; i++) {
         n = 1;
@@ -52,6 +67,16 @@ export default {
 <template>
   <AppLoader v-if="isLoading" />
   <div class="position d-flex flex-column justify-content-center all-contain">
+    <div v-if="showAlert && alert" class="alert d-flex justufy-content-center alert-warning" role="alert">
+        <div class="alert-content d-flex align-items-center gap-2">
+          <h3>
+              Non puoi ordinare da due diversi ristoranti!
+          </h3>
+          <button @click="alert = false">
+            x
+          </button>
+        </div>
+    </div>
     <div class="form-contain-dish">
       <div class="jumbo d-flex justify-content-center">
         <div class="jmb-child d-flex gap-3">
@@ -144,6 +169,21 @@ export default {
 </template>
 
 <style scoped lang="scss">
+
+.alert{
+  
+  z-index: 10;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  button{
+    width: 50px;
+    height: 50px;
+  }
+
+}
 .svg-types {
   height: 0;
 }
