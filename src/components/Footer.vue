@@ -45,7 +45,7 @@
             <li>Informazioni su Deliveboo</li>
             <li>Diventa Partner</li>
             <li>Lavora con noi</li>
-            <li>Diventa un rider su Deliveb</li>
+            <li>Diventa un rider su Deliveboo</li>
             <li>Politica dei Cookies</li>
             <li>Sostenbilità</li>
             <li>
